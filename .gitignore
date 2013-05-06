@@ -1,0 +1,7 @@
+*.kate*
+*.kdev*
+moc*
+*.o
+*~
+build/*
+src/CodeTests/*
