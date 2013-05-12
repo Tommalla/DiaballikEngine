@@ -26,9 +26,9 @@ class Board {
 		Board(int size = BOARD_SIZE);
 		Board(const Board &b);
 		
-		void setFieldAt(const int x, const int y, const FieldState field);
+		void setFieldAt(const uint8_t x, const uint8_t y, const FieldState field);
 		void setFieldAt(const Point& pos, const FieldState field);
-		FieldState getFieldAt(const int x, const int y) const;
+		FieldState getFieldAt(const uint8_t x, const uint8_t y) const;
 		FieldState getFieldAt(const Point& pos) const;
 
 		~Board();

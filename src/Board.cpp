@@ -31,7 +31,7 @@ Board::Board (const Board& b) {
 	this->copyToSelf(b);
 }
 
-void Board::setFieldAt (const int x, const int y, const FieldState field) {
+void Board::setFieldAt (const uint8_t x, const uint8_t y, const FieldState field) {
 	assert(field < this->size * this->size);
 	assert(x < this->size && y < this->size);
 	
@@ -43,7 +43,7 @@ void Board::setFieldAt (const Point& pos, const FieldState field) {
 	this->setFieldAt(pos.x, pos.y, field);
 }
 
-FieldState Board::getFieldAt (const int x, const int y) const {
+FieldState Board::getFieldAt (const uint8_t x, const uint8_t y) const {
 	assert(x < this->size && y < this->size);
 	
 	return (FieldState)this->board->getValue(this->size * y + x);
