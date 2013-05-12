@@ -33,7 +33,7 @@ uint8_t BitContainer::getClearMask (const int begin, const int end) const {
 
 int BitContainer::getBits (const int row, const int begin, const int end) const {
 	uint8_t mask = ~this->getClearMask(begin, end);
-	printf("\tgetBits(row = %d, begin = %d, end = %d)\n", row, begin, end);
+	//printf("\tgetBits(row = %d, begin = %d, end = %d)\n", row, begin, end);
 	//printf("mask = %s\n", bitset<8>(mask).to_string<char,char_traits<char>,allocator<char> >().c_str());
 	mask &= container[row];
 // 	printf("mask = %s\n", bitset<64>(mask).to_string<char,char_traits<char>,allocator<char> >().c_str());
@@ -96,7 +96,6 @@ int BitContainer::getValue (const int id) const {
 	int result = 0;
 	int offset;
 	
-	//TODO: while
 	for(; bitsRead < this->bitsPerValue;) {
 		printf("DEBUG: reading row %d: [%d, %d], val = %d\n", row, begin, end, this->getBits(row, begin, end));
 		result = (result << (end - begin)) + this->getBits(row, begin, end);
@@ -106,19 +105,8 @@ int BitContainer::getValue (const int id) const {
 		begin = end % this->bitsPerInt;
 		end = (begin + this->bitsPerValue - bitsRead) % this->bitsPerInt;
 	}
-// 	int result = this->getBits(row, begin, end);
-// // 	printf("result = %s\n", bitset<64>(result).to_string<char,char_traits<char>,allocator<char> >().c_str());
-// 	
-// 	if (end - begin == this->bitsPerValue)
-// 		return result;
-// 	
-// 	result <<= this->bitsPerValue - (end - begin);
-// // 	printf("result = %s\n", bitset<64>(result).to_string<char,char_traits<char>,allocator<char> >().c_str());
-// 	row++;
-// 	end = this->bitsPerValue - end + begin;
-// 	begin = 0;
-	
-	return result;/* + this->getBits(row, begin, end);*/
+
+	return result;
 }
 
 const string BitContainer::getHash() {
