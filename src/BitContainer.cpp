@@ -55,7 +55,7 @@ BitContainer::BitContainer (int size, int maxValue) {
 	this->size = size;
 	this->maxValue = maxValue;
 	
-	this->bitsPerValue = ceil(log2(maxValue));
+	this->bitsPerValue = ceil(log2(maxValue)) + ((1 << (int)log2(maxValue)) == maxValue) ;
 	this->container.resize(ceil((double)(size * this->bitsPerValue) / (double)this->bitsPerInt), 0);
 }
 
