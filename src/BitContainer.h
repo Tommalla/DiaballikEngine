@@ -19,6 +19,9 @@ class BitContainer {
 		vector<uint8_t> container;
 		
 		uint8_t getMask(const int begin, const int end, const uint8_t value) const;
+		/**
+		 * @brief Returns a mask with zeros on positions from begin to end
+		 **/
 		uint8_t getClearMask(const int begin, const int end) const;
 		
 		void setBits(const int row, const int begin, const int end, const uint8_t value);
