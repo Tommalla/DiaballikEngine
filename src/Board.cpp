@@ -10,23 +10,28 @@ void Board::copyToSelf (const Board& b) {
 	this->board = new BitContainer(*b.board);
 }
 
-Board::Board() {
-	this->size = 7;
-	this->board = new BitContainer(7, 5);
-	
-	//TODO: Board generation.
-}
-
 Board::Board (int size) {
 	this->size = size;
-	this->board = new BitContainer(size * size, size * size);
+	this->board = new BitContainer(size * size, MAX_FIELD_STATE);
+	
+	for (int x = 0; x < this->size; ++x) {
+		this->setFieldAt(x, 0, PLAYER_A);
+		this->setFieldAt(x, this->size - 1, PLAYER_B);
+	}
+	
+	for (int y = 1; y < this->size - 1; ++y)
+		for (int x = 0; x < this->size; ++x)
+			this->setFieldAt(x, y, EMPTY);
+		
+		this->setFieldAt(this->size / 2, 0, BALL_A);
+	this->setFieldAt(this->size / 2, this->size - 1, BALL_B);
 }
 
 Board::Board (const Board& b) {
 	this->copyToSelf(b);
 }
 
-void Board::setFieldAt (const int x, const int y, const int field) {
+void Board::setFieldAt (const int x, const int y, const FieldState field) {
 	assert(field < this->size * this->size);
 	assert(x < this->size && y < this->size);
 	
@@ -34,17 +39,17 @@ void Board::setFieldAt (const int x, const int y, const int field) {
 }
 
 
-void Board::setFieldAt (const Point& pos, const int field) {
+void Board::setFieldAt (const Point& pos, const FieldState field) {
 	this->setFieldAt(pos.x, pos.y, field);
 }
 
-int Board::getFieldAt (const int x, const int y) const {
+FieldState Board::getFieldAt (const int x, const int y) const {
 	assert(x < this->size && y < this->size);
 	
-	return this->board->getValue(this->size * y + x);
+	return (FieldState)this->board->getValue(this->size * y + x);
 }
 
-int Board::getFieldAt (const Point& pos) const {
+FieldState Board::getFieldAt (const Point& pos) const {
 	return this->getFieldAt(pos.x, pos.y);
 }
 
@@ -62,8 +67,11 @@ string Board::toString() {
 	string res ="";
 	
 	for (int y = 0; y < this->size; ++y, res += "\n") 
-		for (int x = 0; x < this->size; ++x)
-			res += this->getFieldAt(x, y) + " ";
+		for (int x = 0; x < this->size; ++x) {
+			string tmp = "";	//ugly hack
+			tmp.push_back(this->getFieldAt(x, y) + '0');
+			res += tmp + string(" ");
+		}
 		
 	return res;
 }

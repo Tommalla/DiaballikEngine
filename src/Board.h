@@ -7,6 +7,8 @@ All rights reserved */
 
 #include "Point.h"
 #include "BitContainer.h"
+#include "constants.h"
+#include "enums.h"
 
 using namespace std;
 
@@ -18,24 +20,17 @@ class Board {
 		void copyToSelf(const Board &b);
 	public:
 		/**
-		 * @brief An empty constructor
-		 * Creates a default board: 7 x 7 with opponents lined up on both sides
-		 **/
-		Board();
-		/**
 		 * @brief Creates a new square board of specified width
 		 * @param size Board width. The default is 7.
 		 **/
-		Board(int size = 7);
+		Board(int size = BOARD_SIZE);
 		Board(const Board &b);
 		
-		void setFieldAt(const int x, const int y, const int field);
-		void setFieldAt(const Point& pos, const int field);
-		int getFieldAt(const int x, const int y) const;
-		int getFieldAt(const Point& pos) const;
+		void setFieldAt(const int x, const int y, const FieldState field);
+		void setFieldAt(const Point& pos, const FieldState field);
+		FieldState getFieldAt(const int x, const int y) const;
+		FieldState getFieldAt(const Point& pos) const;
 
-		
-		
 		~Board();
 		Board& operator=(const Board &b);
 		//debug:
