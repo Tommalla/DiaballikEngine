@@ -18,32 +18,23 @@ class Board {
 		void copyToSelf(const Board &b);
 	public:
 		/**
-		 * @brief Tworzy nową planszę o boku podanej długości
-		 * @param size Długość boku planszy. Domyślnie 4.
+		 * @brief An empty constructor
+		 * Creates a default board: 7 x 7 with opponents lined up on both sides
 		 **/
-		Board(int size = 4);
+		Board();
+		/**
+		 * @brief Creates a new square board of specified width
+		 * @param size Board width. The default is 7.
+		 **/
+		Board(int size = 7);
 		Board(const Board &b);
 		
+		void setFieldAt(const int x, const int y, const int field);
 		void setFieldAt(const Point& pos, const int field);
 		int getFieldAt(const int x, const int y) const;
-		/**
-		 * @brief Zwraca puste pole z otoczenia pos.
-		 * @param pos ...
-		 * @return const Point& Point(0,0), jeśli nie ma, wektor przesunięcia na którego końcu leży wolne pole w innym przypadku
-		 **/
-		const Point getFreeFieldAround(const Point& pos);
-		/**
-		 * @brief Zwraca punkty z których można się ruszyć w obecnej planszy
-		 **/
-		const vector<Point> getMoves();
-		const Point getPos(const int number);
-		const int countInversions() const;
-		/**
-		 * @brief Zwraca sumę odległości wszystkich klocków od ich docelowego położenia w metryce Manhattan
-		 **/
-		const int getManhattanMetricValue(const int row) const;
+		int getFieldAt(const Point& pos) const;
+
 		
-		bool isSolved(const int rows, const int col) const;
 		
 		~Board();
 		Board& operator=(const Board &b);
