@@ -7,12 +7,13 @@ All rights reserved */
 
 class Point {
 	public:
-		uint8_t x, y;
-		Point(uint8_t x, uint8_t y);
+		int8_t x, y;
+		Point(int8_t x, int8_t y);
 		Point(){}
 };
 
 Point operator+(const Point &a, const Point &b);
+Point operator-(const Point &a, const Point &b);
 const bool operator==(const Point &a, const Point &b);
 const bool operator!=(const Point &a, const Point &b);
 
