@@ -4,8 +4,8 @@ All rights reserved */
 #ifndef GAME_H
 #define GAME_H
 
-#include "Move.h"
-#include "Point.h"
+//#include "Move.h"
+//#include "Point.h"
 
 
 class Game {
