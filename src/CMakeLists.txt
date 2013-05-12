@@ -6,6 +6,7 @@ set (HEADERS
 	constants.h
 	enums.h
 	Game.h
+	Move.h
 	Point.h
 )
 
