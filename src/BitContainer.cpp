@@ -63,27 +63,41 @@ void BitContainer::setValue (const int id, int value) {
 	assert(value <= maxValue);
 	assert(id < size);
 	
+	printf("DEBUG: setValue(%d, %d)\n", id, value);
+	
 	int row = this->getRow(id);
 	int begin = this->getBegin(id);
 	int end = min(begin + this->bitsPerValue, this->bitsPerInt);
+	int bitsWritten = 0;
+	int offset;
 	
 	//TODO: While
-	
+	for (; bitsWritten < this->bitsPerValue; ) {
+		offset = this->bitsPerValue - bitsWritten - end + begin;
+		printf("DEBUG: writing: row %d: [%d, %d], %d, diff = %d\n", row, begin, end, value >> offset, offset);
+		this->setBits(row, begin, end, value >> offset);
+		
+		bitsWritten += end - begin;
+		value -= (value >> offset) << offset;	//we remove all the bits other than the last offset
+		row += end >= this->bitsPerInt;
+		begin = end % this->bitsPerInt;
+		end = (begin + this->bitsPerValue - bitsWritten) % this->bitsPerInt;
+	}
 // 	QDebug() << "setValue(" << id << ", " << value <<"):\n\trow = " << row << "; begin = " << begin << "; end = " << end <<
 // 	 "; mask = " << mask << "; clearMask = " << clearMask << "\n";
-	this->setBits(row, begin, end, value >> (this->bitsPerValue - end + begin));
+
 	
 	//printf("DBG %d\n", this->bitsPerValue - end + begin);
 	
-	if (end - begin == this->bitsPerValue)
-		return;
-	
-	value -= value - value / pow(2, this->bitsPerValue - end + begin);
-	row++;
-	end = this->bitsPerValue - end + begin;
-	begin = 0;
-	
-	this->setBits(row, begin, end, value);
+// 	if (end - begin == this->bitsPerValue)
+// 		return;
+// 	
+// 	value -= value - value / pow(2, this->bitsPerValue - end + begin);
+// 	row++;
+// 	end = this->bitsPerValue - end + begin;
+// 	begin = 0;
+// 	
+// 	this->setBits(row, begin, end, value);
 }
 
 int BitContainer::getValue (const int id) const {
