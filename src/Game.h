@@ -10,6 +10,8 @@ All rights reserved */
 #include "enums.h"
 #include "constants.h"
 
+using namespace std;
+
 /**
  * @brief The main class of the engine
  * Remembers the current state of game and allows to make valid moves
@@ -33,6 +35,7 @@ class Game {
 		GamePlayer currentPlayer;
 		
 		void resetMoves();
+		bool areEnemiesBetween (Point from, const Point& to) const;
 		
 	public:
 		Game();
