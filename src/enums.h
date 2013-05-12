@@ -10,4 +10,10 @@ enum FieldState {
 	BALL_B = _BALL_B
 };
 
+enum GamePlayer {
+	NONE = _EMPTY,
+	GAME_PLAYER_A = _PLAYER_A,
+	GAME_PLAYER_B = _PLAYER_B
+};
+
 #endif
