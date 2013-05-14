@@ -15,7 +15,7 @@ using namespace std;
 class Board {
 	private:
 		int size;
-		BitContainer* board;
+		BitContainer board;
 		
 		void copyToSelf(const Board &b);
 	public:
@@ -31,10 +31,10 @@ class Board {
 		FieldState getFieldAt(const uint8_t x, const uint8_t y) const;
 		FieldState getFieldAt(const Point& pos) const;
 
-		~Board();
 		Board& operator=(const Board &b);
 		//debug:
 		string toString();
+		string getHash();
 };
 
 #endif // BOARD_H

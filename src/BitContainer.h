@@ -42,6 +42,7 @@ class BitContainer {
 		int getValue(const int id) const;
 		
 		const string getHash();
+		BitContainer& operator=(const BitContainer& b);
 };
 
 #endif // BITCONTAINER_H

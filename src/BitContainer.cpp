@@ -116,3 +116,13 @@ const string BitContainer::getHash() {
 	res.push_back(container.back());
 	return res;
 }
+
+BitContainer& BitContainer::operator= (const BitContainer& b) {
+	this->bitsPerValue = b.bitsPerValue;
+	this->container = b.container;
+	this->maxValue = b.maxValue;
+	this->size = b.size;
+	
+	return *this;
+}
+
