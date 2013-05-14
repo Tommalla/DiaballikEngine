@@ -58,6 +58,14 @@ Board& Board::operator= (const Board& b) {
 	return *this;
 }
 
+const string Board::getHash() const {
+	return this->board.getHash();
+}
+
+const int Board::getSize() const {
+	return this->size;
+}
+
 const string Board::toString() const {
 	string res = "";
 	
@@ -68,11 +76,6 @@ const string Board::toString() const {
 			res += tmp + string(" ");
 		}
 		
-	return res;
+		return res;
 }
-
-const string Board::getHash() const {
-	return this->board.getHash();
-}
-
 

@@ -32,9 +32,11 @@ class Board {
 		FieldState getFieldAt(const Point& pos) const;
 
 		Board& operator=(const Board &b);
+		const string getHash() const;
+		const int getSize() const;
+		
 		//debug:
 		const string toString() const;
-		const string getHash() const;
 };
 
 #endif // BOARD_H
