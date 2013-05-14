@@ -19,6 +19,7 @@ using namespace std;
  * @brief The main class of the engine
  * Remembers the current state of game and allows to make valid moves
  **/
+//IMPORTANT: The class assumes that player A starts at top and B starts at bottom!
 class Game {
 	private:
 		Board board;
@@ -42,6 +43,8 @@ class Game {
 		void resetMoves();
 		bool areEnemiesBetween (Point from, const Point& to) const;
 		void callDraw();
+		void callWinner(const GamePlayer &player);
+		bool checkForBlocks() const;
 		
 	public:
 		Game();

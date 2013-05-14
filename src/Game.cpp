@@ -28,12 +28,22 @@ void Game::callDraw() {
 	this->currentPlayer = NONE;
 }
 
+void Game::callWinner (const GamePlayer& player) {
+	this->gameInProgress = false;
+	this->currentPlayer = player;
+}
+
 
 void Game::resetMoves() {
 	this->movesLeft = 2;
 	this->passesLeft = 1;
 }
 
+bool Game::checkForBlocks() const {
+	int qty = 0;
+	
+	//check for lines and contacts with lines
+}
 
 void Game::newGame() {
 	this->board = Board();
@@ -67,7 +77,6 @@ bool Game::isMoveValid (const Move& move) const {
 }
 
 void Game::makeMove (const Point& from, const Point& to) {
-	//TODO make move
 	assert(this->isMoveValid(from, to));
 	
 	FieldState srcFieldState = this->board.getFieldAt(from);
@@ -101,6 +110,8 @@ void Game::makeMove (const Point& from, const Point& to) {
 		this->board.setFieldAt(from, dstFieldState);
 		this->passesLeft--;
 	}
+	
+	this->isFinished();
 }
 
 void Game::makeMove (const Move& move) {
@@ -129,7 +140,22 @@ vector< Point > Game::getPawnsOf (const GamePlayer player) const {
 }
 
 bool Game::isFinished() {
-	//TODO: check if the game is finished
+	if (!this->gameInProgress)
+		return true;
+	
+	for (int x = 0; x < this->board.getSize(); ++x) {
+		if (this->board.getFieldAt(x, 0) == BALL_B) {
+			this->callWinner(GAME_PLAYER_B);
+			return true;
+		}
+		
+		if (this->board.getFieldAt(x, this->board.getSize() - 1) == BALL_A) {
+			this->callWinner(GAME_PLAYER_A);
+			return true;
+		}
+	}
+		
+	return false;
 }
 
 GamePlayer Game::getWinner() const {
