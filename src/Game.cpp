@@ -40,7 +40,6 @@ void Game::newGame() {
 }
 
 bool Game::isMoveValid (const Point& from, const Point& to) const {
-	//TODO check if move is valid
 	if (from.x != to.x && from.y != to.y && (to-from).x != (to-from).y)
 		return false;
 	
@@ -61,6 +60,19 @@ bool Game::isMoveValid (const Move& move) const {
 
 void Game::makeMove (const Point& from, const Point& to) {
 	//TODO make move
+	assert(this->isMoveValid(from, to));
+	
+	FieldState srcField = this->board.getFieldAt(from);
+	FieldState dstField = this->board.getFieldAt(to);
+	
+	if (currentPlayer == NONE) {	//player not yet known
+		
+	}
+	//check player info - whether he/she is even initalized,
+	//if not - initialize him/her, set moves qty etc.
+	//then assert that they can perform the move and THEN
+	//make a move and modify movesQty etc...
+	
 }
 
 void Game::makeMove (const Move& move) {

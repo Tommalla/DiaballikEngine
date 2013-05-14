@@ -46,10 +46,19 @@ class Game {
 		void makeMove(const Point& from, const Point& to);
 		void makeMove(const Move& move);
 		
+		/**
+		 * @brief Returns fields that pawn can move to in one move (or pass ball to)
+		 * @param pos The position of pawn
+		 * @return vector< Point > - the vector of all positions the pawn can move to/pass ball to
+		 **/
 		vector<Point> getDestinationsFor(const Point& pos) const;
+		/**
+		 * @brief Returns fields that pawn can move to in one move (or pass ball to)
+		 * Same as getDestinationsFor(const Point&)
+		 **/
 		vector<Point> getDestinationsFor(const int x, const int y) const;
 		
-		vector<Point> getPiecesOf(const GamePlayer player) const;
+		vector<Point> getPawnsOf(const GamePlayer player) const;
 		
 		bool isFinished();
 		GamePlayer getWinner() const;
