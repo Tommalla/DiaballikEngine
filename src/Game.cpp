@@ -39,9 +39,50 @@ void Game::resetMoves() {
 	this->passesLeft = 1;
 }
 
-bool Game::checkForBlocks() const {
-	int qty = 0;
+bool Game::checkForBlocks() {
+	int contacts = 0;
+	bool lineA, lineB;
+	lineA = lineB = true;
 	
+	Point lastA, lastB;
+	lastA = lastB = Point(-1, -1);
+	
+	FieldState field;
+	
+	for (int x = 0; x < this->board.getSize(); ++x) 
+		for (int y = 0; y < this->board.getSize(); ++y) {
+			field = this->board.getFieldAt(x, y);
+			
+			if ((field == PLAYER_A || field == BALL_A) && y < this->board.getSize() - 1 &&
+				(this->board.getFieldAt(x, y + 1) == PLAYER_B || this->board.getFieldAt(x, y + 1) == BALL_B) )
+				++contacts;	//two players facing each other
+			
+			if (field != EMPTY) {
+				if ((field == PLAYER_A || field == BALL_A) && lineA) {
+					if (lastA == Point(-1, -1) || (lastA.x + 1 == x && 
+					(lastA.y == y || lastA.y + 1 == y || lastA.y == y + 1 )) )
+						lastA = Point(x,y);
+					else
+						lineA = false;
+				}
+				
+				if ((field == PLAYER_B || field == BALL_B) && lineB) {
+					if (lastB == Point(-1, -1) || (lastB.x + 1 == x && 
+						(lastB.y == y || lastB.y + 1 == y || lastB.y == y + 1 )) )
+						lastB = Point(x,y);
+					else
+						lineB = false;
+				}
+			}
+			
+			if (lineA == false && lineB == false)
+				return false;
+		}
+	
+	if ((lineA || lineB) && contacts >= 3) {
+		this->callWinner(this->getOppositePlayer(this->currentPlayer));
+		return true;
+	}
 	//check for lines and contacts with lines
 }
 
@@ -111,7 +152,8 @@ void Game::makeMove (const Point& from, const Point& to) {
 		this->passesLeft--;
 	}
 	
-	this->isFinished();
+	if (this->checkForBlocks() == false)
+		this->isFinished();
 }
 
 void Game::makeMove (const Move& move) {
@@ -161,9 +203,6 @@ bool Game::isFinished() {
 GamePlayer Game::getWinner() const {
 	if (this->gameInProgress)
 		return NONE;
-	
-	if (this->illegalEnd)
-		return this->getOppositePlayer(this->currentPlayer);
 	
 	return this->currentPlayer;
 }

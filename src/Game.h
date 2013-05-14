@@ -25,10 +25,6 @@ class Game {
 		Board board;
 		bool gameInProgress;
 		/**
-		 * @brief Indicates that the game finished after an illegal move
-		 **/
-		bool illegalEnd;
-		/**
 		 * @brief The amount of moves left for the current player
 		 **/
 		uint8_t movesLeft;
@@ -44,11 +40,18 @@ class Game {
 		bool areEnemiesBetween (Point from, const Point& to) const;
 		void callDraw();
 		void callWinner(const GamePlayer &player);
-		bool checkForBlocks() const;
+		/**
+		 * @brief Checks if 'unfair game' condition is met
+		 * @return bool
+		 **/
+		bool checkForBlocks();
 		
 	public:
 		Game();
 		void newGame();
+		//TODO for further versions
+		//void newGame(const Board &b);
+		//begins a new game on a given Board.
 		
 		bool isMoveValid(const Point& from, const Point& to) const;
 		bool isMoveValid(const Move& move) const;
