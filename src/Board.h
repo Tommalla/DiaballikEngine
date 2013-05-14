@@ -33,8 +33,8 @@ class Board {
 
 		Board& operator=(const Board &b);
 		//debug:
-		string toString();
-		string getHash();
+		const string toString() const;
+		const string getHash() const;
 };
 
 #endif // BOARD_H

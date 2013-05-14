@@ -41,7 +41,7 @@ class BitContainer {
 		void setValue(const int id, const int value);
 		int getValue(const int id) const;
 		
-		const string getHash();
+		const string getHash() const;
 		BitContainer& operator=(const BitContainer& b);
 };
 

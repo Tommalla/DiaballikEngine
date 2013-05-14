@@ -109,7 +109,7 @@ int BitContainer::getValue (const int id) const {
 	return result;
 }
 
-const string BitContainer::getHash() {
+const string BitContainer::getHash() const {
 	string res = "";
 	for (int i = 0; i < this->container.size() - 1; ++i)
 		res += this->container[i] + ";";

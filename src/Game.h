@@ -1,8 +1,11 @@
 /* Tomasz [Tommalla] Zakrzewski, 2013
-All rights reserved */
+All rights reserved 
+v 0.1					*/
 
 #ifndef GAME_H
 #define GAME_H
+
+#include <unordered_set>
 
 #include "Board.h"
 #include "Move.h"
@@ -34,8 +37,11 @@ class Game {
 		uint8_t passesLeft;
 		GamePlayer currentPlayer;
 		
+		unordered_set<string> prevStates;
+		
 		void resetMoves();
 		bool areEnemiesBetween (Point from, const Point& to) const;
+		void callDraw();
 		
 	public:
 		Game();
@@ -45,6 +51,11 @@ class Game {
 		bool isMoveValid(const Move& move) const;
 		void makeMove(const Point& from, const Point& to);
 		void makeMove(const Move& move);
+		//TODO for further versions used for gui-based games with undo option
+		//void undoMove(const Point& from, const Point &to);
+		//void undoMove(const Move& move);
+		//works pretty much the same as makeMove BUT removes states from prevStates so that going back with
+		//moves and then doing them again doesn't induce draws
 		
 		/**
 		 * @brief Returns fields that pawn can move to in one move (or pass ball to)
@@ -64,6 +75,8 @@ class Game {
 		GamePlayer getWinner() const;
 		
 		GamePlayer getOppositePlayer(const GamePlayer& player) const;
+		
+		const string getHash() const;
 };
 
 #endif // GAME_H

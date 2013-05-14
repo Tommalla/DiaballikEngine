@@ -58,7 +58,7 @@ Board& Board::operator= (const Board& b) {
 	return *this;
 }
 
-string Board::toString() {
+const string Board::toString() const {
 	string res = "";
 	
 	for (int y = 0; y < this->size; ++y, res += "\n") 
@@ -71,7 +71,7 @@ string Board::toString() {
 	return res;
 }
 
-string Board::getHash() {
+const string Board::getHash() const {
 	return this->board.getHash();
 }
 
