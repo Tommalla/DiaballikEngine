@@ -161,7 +161,45 @@ void Game::makeMove (const Move& move) {
 }
 
 vector< Point > Game::getDestinationsFor (const int x, const int y) const {
-	//TODO get 'em!
+	FieldState srcFieldState = this->board.getFieldAt(x, y);
+	vector<Point> res;
+	
+	if (srcFieldState == PLAYER_A || srcFieldState == PLAYER_B) {
+		Point t[4] = { Point(-1, 0), Point(1, 0), Point(0, -1), Point(0, 1) };
+		
+		for (int i = 0; i < 4; ++i) {
+			Point tmp = Point(x, y) + t[i];
+			if (tmp.x >= 0 && tmp.x < this->board.getSize() &&
+				tmp.y >= 0 && tmp.y < this->board.getSize() &&
+				this->board.getFieldAt(tmp) == EMPTY)
+				res.push_back(tmp);
+		}
+	} else if (srcFieldState == BALL_A || srcFieldState == BALL_B) {
+		int size = 8;
+		Point t[8] = { Point(-1, -1), Point(-1, 0), Point(1, 1), Point(1, 0),
+				Point(-1, 1), Point(1, -1), Point(0, -1), Point(-1, 0)};
+		
+		Point iter[8];
+		for (int i = 0; i < 8; ++i)
+			iter[i] = Point(x, y) + t[i];
+		
+		while (size > 0) {
+			for (int i = 0; i < size; ++i) {
+				if (iter[i].x < 0 || iter[i].x >= this->board.getSize() ||
+					iter[i].y < 0 || iter[i].y >= this->board.getSize() ||	//if the iterator is no longer valid
+					(srcFieldState == BALL_A && 
+						(this->board.getFieldAt(iter[i]) == PLAYER_B || 
+						this->board.getFieldAt(iter[i]) == BALL_B)) ||
+					(srcFieldState == BALL_B &&
+						(this->board.getFieldAt(iter[i]) == PLAYER_A || 
+						this->board.getFieldAt(iter[i]) == BALL_A)) ) {
+							swap(iter[i], iter[size - 1]);
+							--size;
+				} else if (board.getFieldAt(iter[i]) != EMPTY)
+					res.push_back(iter[i]);
+			}
+		}
+	}
 }
 
 vector< Point > Game::getDestinationsFor (const Point& pos) const {
