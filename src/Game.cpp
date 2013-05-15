@@ -219,6 +219,15 @@ vector< Point > Game::getPawnsOf (const GamePlayer player) const {
 	return res;
 }
 
+const FieldState Game::getFieldAt (const int8_t x, const int8_t y) {
+	return this->board.getFieldAt(x, y);
+}
+
+const FieldState Game::getFieldAt (const Point& pos) const {
+	return this->board.getFieldAt(pos);
+}
+
+
 bool Game::isFinished() {
 	if (!this->gameInProgress)
 		return true;

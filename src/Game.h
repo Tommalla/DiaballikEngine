@@ -76,6 +76,10 @@ class Game {
 		
 		vector<Point> getPawnsOf(const GamePlayer player) const;
 		
+		const FieldState getFieldAt(const int8_t x, const int8_t y);
+		const FieldState getFieldAt(const Point& pos) const;
+		
+		
 		bool isFinished();
 		GamePlayer getWinner() const;
 		
