@@ -1,7 +1,6 @@
 /* Tomasz [Tommalla] Zakrzewski, 2013
 All rights reserved 
 v 0.1					*/
-
 #ifndef GAME_H
 #define GAME_H
 
@@ -80,6 +79,7 @@ class Game {
 		bool isFinished();
 		GamePlayer getWinner() const;
 		
+		GamePlayer getCurrentPlayer() const;
 		GamePlayer getOppositePlayer(const GamePlayer& player) const;
 		
 		const string getHash() const;

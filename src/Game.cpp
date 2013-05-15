@@ -245,6 +245,11 @@ GamePlayer Game::getWinner() const {
 	return this->currentPlayer;
 }
 
+GamePlayer Game::getCurrentPlayer() const {
+	return this->currentPlayer;
+}
+
+
 GamePlayer Game::getOppositePlayer (const GamePlayer& player) const {
 	if (player == NONE)
 		return NONE;
