@@ -227,7 +227,6 @@ const FieldState Game::getFieldAt (const Point& pos) const {
 	return this->board.getFieldAt(pos);
 }
 
-
 bool Game::isFinished() {
 	if (!this->gameInProgress)
 		return true;
@@ -264,6 +263,15 @@ GamePlayer Game::getOppositePlayer (const GamePlayer& player) const {
 		return NONE;
 	return (player == GAME_PLAYER_A) ? GAME_PLAYER_B : GAME_PLAYER_A;
 }
+
+GamePlayer Game::getPlayerFor (const FieldState& field) const {
+	if (field == EMPTY)
+		return NONE;
+	if (field >= PLAYER_A && field <= BALL_A)
+		return GAME_PLAYER_A;
+	return GAME_PLAYER_B;
+}
+
 
 const string Game::getHash() const {
 	return char(this->currentPlayer) + this->board.getHash();

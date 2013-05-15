@@ -79,12 +79,13 @@ class Game {
 		const FieldState getFieldAt(const int8_t x, const int8_t y);
 		const FieldState getFieldAt(const Point& pos) const;
 		
-		
 		bool isFinished();
 		GamePlayer getWinner() const;
 		
 		GamePlayer getCurrentPlayer() const;
 		GamePlayer getOppositePlayer(const GamePlayer& player) const;
+		
+		GamePlayer getPlayerFor(const FieldState& field) const;
 		
 		const string getHash() const;
 };
