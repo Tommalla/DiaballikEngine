@@ -14,6 +14,7 @@ set (SOURCES
 	BitContainer.cpp
 	Board.cpp
 	Game.cpp
+	Move.cpp
 	Point.cpp
 )
 

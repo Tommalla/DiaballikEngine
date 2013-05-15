@@ -9,6 +9,9 @@ All rights reserved */
 class Move {
 	public:
 		Point from, to;
+		
+		Move(){}
+		Move(const Point &from, const Point &to);
 };
 
 #endif // MOVE_H
