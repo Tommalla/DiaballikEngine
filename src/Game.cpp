@@ -157,7 +157,7 @@ void Game::makeMove (const Point& from, const Point& to) {
 		assert(this->movesLeft > 0);
 		
 		this->board.setFieldAt(to, srcFieldState);
-		this->board.setFieldAt(to, EMPTY);
+		this->board.setFieldAt(from, EMPTY);
 		this->movesLeft--;
 	} else {	//PASS
 		assert(this->passesLeft > 0);
@@ -299,7 +299,6 @@ GamePlayer Game::getPlayerFor (const FieldState& field) const {
 		return GAME_PLAYER_A;
 	return GAME_PLAYER_B;
 }
-
 
 const string Game::getHash() const {
 	engine::printDebug("Game::getHash()");
