@@ -240,7 +240,7 @@ vector< Point > Game::getPawnsOf (const GamePlayer player) const {
 	
 	for (int x = 0; x < BOARD_SIZE; ++x)
 		for (int y = 0; y < BOARD_SIZE; ++y)
-			if ((int)this->board.getFieldAt(x, y) == (int)player)
+			if (this->getPlayerFor(this->board.getFieldAt(x, y)) == player)
 				res.push_back(Point(x, y));
 			
 	return res;
