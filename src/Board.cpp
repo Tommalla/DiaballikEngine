@@ -4,6 +4,7 @@ All rights reserved */
 #include <cmath>
 
 #include "Board.h"
+#include "functions.h"
 
 void Board::copyToSelf (const Board& b) {
 	this->size = b.size;
@@ -44,6 +45,7 @@ void Board::setFieldAt (const Point& pos, const FieldState field) {
 }
 
 FieldState Board::getFieldAt (const uint8_t x, const uint8_t y) const {
+	engine::printDebug("Board::getFieldAt(" + string({char(x + '0')}) + ", " + string({char(y + '0')}) +")");
 	assert(x < this->size && y < this->size);
 	
 	return (FieldState)this->board.getValue(this->size * y + x);
