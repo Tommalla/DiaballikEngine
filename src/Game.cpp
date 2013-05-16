@@ -310,7 +310,7 @@ GamePlayer Game::getPlayerFor (const FieldState& field) const {
 MoveType Game::getMoveTypeFor (const Move& move) {
 	if (this->isMoveValid(move) == false)
 		return INVALID;
-	return (this->board.getFieldAt(move.from) == this->board.getFieldAt(move.to)) ? BALL_PASS : MOVE;
+	return (this->board.getFieldAt(move.to) != EMPTY) ? BALL_PASS : MOVE;
 }
 
 
