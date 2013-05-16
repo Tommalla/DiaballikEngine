@@ -144,8 +144,8 @@ void Game::makeMove (const Point& from, const Point& to) {
 	FieldState srcFieldState = this->board.getFieldAt(from);
 	FieldState dstFieldState = this->board.getFieldAt(to);
 	
-	if (this->currentPlayer != (GamePlayer)srcFieldState) {	//player not yet known or a new player
-		this->currentPlayer = (GamePlayer)srcFieldState;
+	if (this->currentPlayer != this->getPlayerFor(srcFieldState)) {	//player not yet known or a new player
+		this->currentPlayer = this->getPlayerFor(srcFieldState);
 		this->resetMoves();
 	}
 	
@@ -201,14 +201,15 @@ vector< Point > Game::getDestinationsFor (const int x, const int y) const {
 	} else if (srcFieldState == BALL_A || srcFieldState == BALL_B) {
 		int size = 8;
 		Point t[8] = { Point(-1, -1), Point(-1, 0), Point(1, 1), Point(1, 0),
-				Point(-1, 1), Point(1, -1), Point(0, -1), Point(-1, 0)};
+				Point(-1, 1), Point(1, -1), Point(0, -1), Point(0, 1)};
 		
 		Point iter[8];
 		for (int i = 0; i < 8; ++i)
-			iter[i] = Point(x, y) + t[i];
+			iter[i] = Point(x, y);
 		
 		while (size > 0) {
 			for (int i = 0; i < size; ++i) {
+				iter[i] = iter[i] + t[i];
 				if (iter[i].x < 0 || iter[i].x >= this->board.getSize() ||
 					iter[i].y < 0 || iter[i].y >= this->board.getSize() ||	//if the iterator is no longer valid
 					(srcFieldState == BALL_A && 
@@ -218,6 +219,7 @@ vector< Point > Game::getDestinationsFor (const int x, const int y) const {
 						(this->board.getFieldAt(iter[i]) == PLAYER_A || 
 						this->board.getFieldAt(iter[i]) == BALL_A)) ) {
 							swap(iter[i], iter[size - 1]);
+							swap(t[i], t[size - 1]);
 							--size;
 				} else if (board.getFieldAt(iter[i]) != EMPTY)
 					res.push_back(iter[i]);
