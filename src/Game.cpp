@@ -36,9 +36,9 @@ bool Game::areEnemiesBetween (Point from, const Point& to) const {
 }
 
 void Game::callDraw() {
-	engine::printDebug("Game::callDraw()");
-	this->gameInProgress = false;	//a draw
-	this->currentPlayer = NONE;
+	engine::printDebug("Game::callDraw() -inacive (scheduled for removal)");
+	//this->gameInProgress = false;	//a draw
+	//this->currentPlayer = NONE;
 }
 
 void Game::callWinner (const GamePlayer& player) {
