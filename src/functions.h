@@ -7,7 +7,7 @@ using namespace std;
 namespace engine {
 	inline void printDebug(const string& str) {
 		#ifndef NDEBUG
-		fputs(("dbg: " + str).c_str(), stderr);
+		fputs(("dbg: " + str + "\n").c_str(), stderr);
 		#endif
 	}
 	
