@@ -224,6 +224,7 @@ vector< Point > Game::getDestinationsFor (const int x, const int y) const {
 			}
 		}
 	}
+	return res;
 }
 
 vector< Point > Game::getDestinationsFor (const Point& pos) const {
