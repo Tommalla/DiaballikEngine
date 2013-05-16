@@ -19,7 +19,6 @@ bool Game::areEnemiesBetween (Point from, const Point& to) const {
 	FieldState orig = this->board.getFieldAt(from);
 	
 	Point diff = to - from;
-	printf("%d %d\n", diff.x, diff.y);
 	diff.x = engine::sgn(diff.x);
 	diff.y = engine::sgn(diff.y);
 	//Point diff(((from - to).x > 0) ? 1 : -1, ((from - to).y > 0) ? 1 : -1);
@@ -28,7 +27,7 @@ bool Game::areEnemiesBetween (Point from, const Point& to) const {
 	
 	do {
 		from = from + diff;
-		if (this->board.getFieldAt(from) != orig)
+		if (this->getPlayerFor(this->board.getFieldAt(from)) != this->getPlayerFor(orig))
 			return true;
 	} while (from != to);
 	
