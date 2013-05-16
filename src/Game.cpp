@@ -17,7 +17,11 @@ bool Game::areEnemiesBetween (Point from, const Point& to) const {
 	engine::printDebug("Game::areEnemiesBetween(" + string({char(from.x + '0')}) + ", " + string({char(from.y + '0')}) + "; " +
 	string({char(to.x + '0')}) + ", " + string({char(to.y + '0')}) + ")");
 	FieldState orig = this->board.getFieldAt(from);
-	Point diff(((from - to).x > 0) ? 1 : -1, ((from - to).y > 0) ? 1 : -1);
+	
+	Point diff = to - from;;
+	diff.x = engine::sgn(diff.x);
+	diff.y = engine::sgn(diff.x);
+	//Point diff(((from - to).x > 0) ? 1 : -1, ((from - to).y > 0) ? 1 : -1);
 	
 	do {
 		from = from + diff;
