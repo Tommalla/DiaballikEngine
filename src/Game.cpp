@@ -23,7 +23,7 @@ bool Game::areEnemiesBetween (Point from, const Point& to) const {
 	diff.y = engine::sgn(diff.y);
 	//Point diff(((from - to).x > 0) ? 1 : -1, ((from - to).y > 0) ? 1 : -1);
 	
-	engine::printDebug("diff = (" + string({char(diff.x + '0')}) + ", " + string({char(diff.y + '0')}) + ")");
+// 	engine::printDebug("diff = (" + string({char(diff.x + '0')}) + ", " + string({char(diff.y + '0')}) + ")");
 	
 	do {
 		from = from + diff;
