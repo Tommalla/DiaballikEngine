@@ -88,6 +88,9 @@ class Game {
 		GamePlayer getPlayerFor(const FieldState& field) const;
 		
 		const string getHash() const;
+		
+		//debug
+		const string toString() const;
 };
 
 #endif // GAME_H

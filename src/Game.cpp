@@ -306,6 +306,11 @@ const string Game::getHash() const {
 	return char(this->currentPlayer) + this->board.getHash();
 }
 
+const string Game::toString() const {
+	return string((this->currentPlayer == GAME_PLAYER_A) ? "PlayerA" : ((this->currentPlayer == GAME_PLAYER_B) ? "PlayerB" : "NONE")) +
+	"\n" + this->board.toString();
+}
+
 
 
 
