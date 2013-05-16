@@ -5,6 +5,7 @@ set (HEADERS
 	Board.h
 	constants.h
 	enums.h
+	functions.h
 	Game.h
 	Move.h
 	Point.h

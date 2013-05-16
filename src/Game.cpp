@@ -4,6 +4,9 @@ All rights reserved */
 #include <cassert>
 #include <cmath>
 #include "Game.h"
+#include "functions.h"
+
+using namespace std;
 
 Game::Game() {
 	this->gameInProgress = false;
@@ -11,6 +14,8 @@ Game::Game() {
 }
 
 bool Game::areEnemiesBetween (Point from, const Point& to) const {
+	engine::printDebug("Game::areEnemiesBetween(" + string({char(from.x + '0')}) + ", " + string({char(from.y + '0')}) + "; " +
+	string({char(to.x + '0')}) + ", " + string({char(to.y + '0')}) + ")");
 	FieldState orig = this->board.getFieldAt(from);
 	Point diff(((from - to).x > 0) ? 1 : -1, ((from - to).y > 0) ? 1 : -1);
 	
@@ -24,22 +29,26 @@ bool Game::areEnemiesBetween (Point from, const Point& to) const {
 }
 
 void Game::callDraw() {
+	engine::printDebug("Game::callDraw()");
 	this->gameInProgress = false;	//a draw
 	this->currentPlayer = NONE;
 }
 
 void Game::callWinner (const GamePlayer& player) {
+	engine::printDebug(string("Game::callWinner(") + string({(char)((char)player + '0')})  + string(")"));
 	this->gameInProgress = false;
 	this->currentPlayer = player;
 }
 
 
 void Game::resetMoves() {
+	engine::printDebug("Game::resetMoves()");
 	this->movesLeft = 2;
 	this->passesLeft = 1;
 }
 
 bool Game::checkForBlocks() {
+	engine::printDebug("Game::checkForBlocks()");
 	int contacts = 0;
 	bool lineA, lineB;
 	lineA = lineB = true;
@@ -83,10 +92,10 @@ bool Game::checkForBlocks() {
 		this->callWinner(this->getOppositePlayer(this->currentPlayer));
 		return true;
 	}
-	//check for lines and contacts with lines
 }
 
 void Game::newGame() {
+	engine::printDebug("Game::newGame()");
 	this->board = Board();
 	this->currentPlayer = NONE;
 	
@@ -97,6 +106,8 @@ void Game::newGame() {
 }
 
 bool Game::isMoveValid (const Point& from, const Point& to) const {
+	engine::printDebug("Game::isMoveValid(" + string({char(from.x + '0')}) + ", " + string({char(from.y + '0')}) + "; " +
+	string({char(to.x + '0')}) + ", " + string({char(to.y + '0')}) + ")");
 	if (from.x != to.x && from.y != to.y && (to-from).x != (to-from).y)
 		return false;
 	
@@ -114,10 +125,14 @@ bool Game::isMoveValid (const Point& from, const Point& to) const {
 }
 
 bool Game::isMoveValid (const Move& move) const {
+	engine::printDebug("Game::isMoveValid(" + string({char(move.from.x + '0')}) + ", " + string({char(move.from.y + '0')}) + "; " +
+	string({char(move.to.x + '0')}) + ", " + string({char(move.to.y + '0')}) + ")");
 	return this->isMoveValid(move.from, move.to);
 }
 
 void Game::makeMove (const Point& from, const Point& to) {
+	engine::printDebug("Game::makeMove(" + string({char(from.x + '0')}) + ", " + string({char(from.y + '0')}) + "; " +
+	string({char(to.x + '0')}) + ", " + string({char(to.y + '0')}) + ")");
 	assert(this->isMoveValid(from, to));
 	
 	FieldState srcFieldState = this->board.getFieldAt(from);
@@ -157,10 +172,13 @@ void Game::makeMove (const Point& from, const Point& to) {
 }
 
 void Game::makeMove (const Move& move) {
+	engine::printDebug("Game::makeMove(" + string({char(move.from.x + '0')}) + ", " + string({char(move.from.y + '0')}) + "; " +
+	string({char(move.to.x + '0')}) + ", " + string({char(move.to.y + '0')}) + ")");
 	this->makeMove(move.from, move.to);
 }
 
 vector< Point > Game::getDestinationsFor (const int x, const int y) const {
+	engine::printDebug("Game::getDestinationsFor(" + string({char(x + '0')}) + ", " + string({char(y + '0')}) +")");
 	FieldState srcFieldState = this->board.getFieldAt(x, y);
 	vector<Point> res;
 	
@@ -203,10 +221,12 @@ vector< Point > Game::getDestinationsFor (const int x, const int y) const {
 }
 
 vector< Point > Game::getDestinationsFor (const Point& pos) const {
+	engine::printDebug("Game::getDestinationsFor(" + string({char(pos.x + '0')}) + ", " + string({char(pos.y + '0')}) +")");
 	return this->getDestinationsFor(pos.x, pos.y);
 }
 
 vector< Point > Game::getPawnsOf (const GamePlayer player) const {
+	engine::printDebug(string("Game::getPawnsOf(") + string({(char)((char)player + '0')})  + string(")"));
 	assert(this->gameInProgress);
 	
 	vector<Point> res;
@@ -220,14 +240,17 @@ vector< Point > Game::getPawnsOf (const GamePlayer player) const {
 }
 
 const FieldState Game::getFieldAt (const int8_t x, const int8_t y) {
+	engine::printDebug("Game::getFieldAt(" + string({char(x + '0')}) + ", " + string({char(y + '0')}) +")");
 	return this->board.getFieldAt(x, y);
 }
 
 const FieldState Game::getFieldAt (const Point& pos) const {
+	engine::printDebug("Game::getFieldAt(" + string({char(pos.x + '0')}) + ", " + string({char(pos.y + '0')}) +")");
 	return this->board.getFieldAt(pos);
 }
 
 bool Game::isFinished() {
+	engine::printDebug("Game::isFinished()");
 	if (!this->gameInProgress)
 		return true;
 	
@@ -247,6 +270,7 @@ bool Game::isFinished() {
 }
 
 GamePlayer Game::getWinner() const {
+	engine::printDebug("Game::getWinner()");
 	if (this->gameInProgress)
 		return NONE;
 	
@@ -254,17 +278,21 @@ GamePlayer Game::getWinner() const {
 }
 
 GamePlayer Game::getCurrentPlayer() const {
+	engine::printDebug("Game::getCurrentPlayer()");
 	return this->currentPlayer;
 }
 
 
 GamePlayer Game::getOppositePlayer (const GamePlayer& player) const {
+	engine::printDebug(string("Game::getOppositePlayer(") + string({(char)((char)player + '0')})  + string(")"));
 	if (player == NONE)
 		return NONE;
 	return (player == GAME_PLAYER_A) ? GAME_PLAYER_B : GAME_PLAYER_A;
 }
 
 GamePlayer Game::getPlayerFor (const FieldState& field) const {
+	engine::printDebug(string("Game::getPlayerFor(") + string({(char)((char)field + '0')})  + string(")"));
+	
 	if (field == EMPTY)
 		return NONE;
 	if (field >= PLAYER_A && field <= BALL_A)
@@ -274,6 +302,7 @@ GamePlayer Game::getPlayerFor (const FieldState& field) const {
 
 
 const string Game::getHash() const {
+	engine::printDebug("Game::getHash()");
 	return char(this->currentPlayer) + this->board.getHash();
 }
 
