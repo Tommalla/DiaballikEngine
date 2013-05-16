@@ -63,7 +63,7 @@ void BitContainer::setValue (const int id, int value) {
 	assert(value <= maxValue);
 	assert(id < size);
 	
-	printf("DEBUG: setValue(%d, %d)\n", id, value);
+	//printf("DEBUG: setValue(%d, %d)\n", id, value);
 	
 	int row = this->getRow(id);
 	int begin = this->getBegin(id);
@@ -87,7 +87,7 @@ void BitContainer::setValue (const int id, int value) {
 
 int BitContainer::getValue (const int id) const {
 	assert(id < size);
-	printf("DEBUG: getValue(%d)\n", id);
+	//printf("DEBUG: getValue(%d)\n", id);
 	
 	int row = this->getRow(id);
 	int begin = this->getBegin(id);
@@ -97,7 +97,7 @@ int BitContainer::getValue (const int id) const {
 	int offset;
 	
 	for(; bitsRead < this->bitsPerValue;) {
-		printf("DEBUG: reading row %d: [%d, %d], val = %d\n", row, begin, end, this->getBits(row, begin, end));
+		//printf("DEBUG: reading row %d: [%d, %d], val = %d\n", row, begin, end, this->getBits(row, begin, end));
 		result = (result << (end - begin)) + this->getBits(row, begin, end);
 		
 		bitsRead += end - begin;
