@@ -27,7 +27,8 @@ bool Game::areEnemiesBetween (Point from, const Point& to) const {
 	
 	do {
 		from = from + diff;
-		if (this->getPlayerFor(this->board.getFieldAt(from)) != this->getPlayerFor(orig))
+		if (this->board.getFieldAt(from) != EMPTY &&  
+			this->getPlayerFor(this->board.getFieldAt(from)) != this->getPlayerFor(orig))
 			return true;
 	} while (from != to);
 	
