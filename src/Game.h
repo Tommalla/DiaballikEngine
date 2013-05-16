@@ -87,6 +87,8 @@ class Game {
 		
 		GamePlayer getPlayerFor(const FieldState& field) const;
 		
+		MoveType getMoveTypeFor(const Move& move);
+		
 		const string getHash() const;
 		
 		//debug

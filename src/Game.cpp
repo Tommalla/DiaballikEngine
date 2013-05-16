@@ -306,6 +306,13 @@ GamePlayer Game::getPlayerFor (const FieldState& field) const {
 	return GAME_PLAYER_B;
 }
 
+MoveType Game::getMoveTypeFor (const Move& move) {
+	if (this->isMoveValid(move) == false)
+		return INVALID;
+	return (this->board.getFieldAt(move.from) == this->board.getFieldAt(move.to)) ? BALL_PASS : MOVE;
+}
+
+
 const string Game::getHash() const {
 	engine::printDebug("Game::getHash()");
 	return char(this->currentPlayer) + this->board.getHash();

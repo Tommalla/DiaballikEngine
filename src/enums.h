@@ -16,4 +16,10 @@ enum GamePlayer {
 	GAME_PLAYER_B = _PLAYER_B
 };
 
+enum MoveType {
+	MOVE,
+	BALL_PASS,
+	INVALID
+};
+
 #endif
