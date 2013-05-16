@@ -150,15 +150,15 @@ void Game::makeMove (const Point& from, const Point& to) {
 		this->resetMoves();
 	}
 	
-	{
-		string hash = this->getHash();
-		if (prevStates.count(hash) > 0) {	//repetition!
-			this->callDraw();
-			return;
-		}
-		
-		prevStates.insert(hash);
-	}
+// 	{
+// 		string hash = this->getHash();
+// 		if (prevStates.count(hash) > 0) {	//repetition!
+// 			this->callDraw();
+// 			return;
+// 		}
+// 		
+// 		prevStates.insert(hash);
+// 	}
 	
 	if (dstFieldState == EMPTY) {	//MOVE
 		assert(this->movesLeft > 0);
