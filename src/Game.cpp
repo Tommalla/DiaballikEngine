@@ -25,7 +25,7 @@ bool Game::areEnemiesBetween (Point from, const Point& to) const {
 	do {
 		from = from + diff;
 		if (this->board.getFieldAt(from) != EMPTY &&  
-			this->getPlayerFor(this->board.getFieldAt(from)) != this->getPlayerFor(orig))
+			engine::getPlayerFor(this->board.getFieldAt(from)) != engine::getPlayerFor(orig))
 			return true;
 	} while (from != to);
 	
@@ -143,8 +143,8 @@ void Game::makeMove (const Point& from, const Point& to) {
 	FieldState srcFieldState = this->board.getFieldAt(from);
 	FieldState dstFieldState = this->board.getFieldAt(to);
 	
-	if (this->currentPlayer != this->getPlayerFor(srcFieldState)) {	//player not yet known or a new player
-		this->currentPlayer = this->getPlayerFor(srcFieldState);
+	if (this->currentPlayer != engine::getPlayerFor(srcFieldState)) {	//player not yet known or a new player
+		this->currentPlayer = engine::getPlayerFor(srcFieldState);
 		this->resetMoves();
 	}
 	
@@ -231,7 +231,7 @@ vector< Point > Game::getPawnsOf (const GamePlayer player) const {
 	
 	for (int x = 0; x < BOARD_SIZE; ++x)
 		for (int y = 0; y < BOARD_SIZE; ++y)
-			if (this->getPlayerFor(this->board.getFieldAt(x, y)) == player)
+			if (engine::getPlayerFor(this->board.getFieldAt(x, y)) == player)
 				res.push_back(Point(x, y));
 			
 	return res;
@@ -280,30 +280,11 @@ GamePlayer Game::getCurrentPlayer() const {
 	return this->currentPlayer;
 }
 
-
-GamePlayer Game::getOppositePlayer (const GamePlayer& player) const {
-	engine::printDebug(string("Game::getOppositePlayer(") + string({(char)((char)player + '0')})  + string(")"));
-	if (player == NONE)
-		return NONE;
-	return (player == GAME_PLAYER_A) ? GAME_PLAYER_B : GAME_PLAYER_A;
-}
-
-GamePlayer Game::getPlayerFor (const FieldState& field) const {
-	engine::printDebug(string("Game::getPlayerFor(") + string({(char)((char)field + '0')})  + string(")"));
-	
-	if (field == EMPTY)
-		return NONE;
-	if (field >= PLAYER_A && field <= BALL_A)
-		return GAME_PLAYER_A;
-	return GAME_PLAYER_B;
-}
-
 MoveType Game::getMoveTypeFor (const Move& move) {
 	if (this->isMoveValid(move) == false)
 		return INVALID;
 	return (this->board.getFieldAt(move.to) != EMPTY) ? BALL_PASS : MOVE;
 }
-
 
 const string Game::getHash() const {
 	engine::printDebug("Game::getHash()");

@@ -81,11 +81,8 @@ class Game {
 		GamePlayer getWinner() const;
 		
 		GamePlayer getCurrentPlayer() const;
-		GamePlayer getOppositePlayer(const GamePlayer& player) const;
 		
-		GamePlayer getPlayerFor(const FieldState& field) const;
-		
-		MoveType getMoveTypeFor(const Move& move);
+		MoveType getMoveTypeFor (const Move& move);
 		
 		const string getHash() const;
 		
