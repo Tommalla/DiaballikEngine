@@ -3,6 +3,7 @@ All rights reserved */
 
 #include <cassert>
 #include <cmath>
+//#include <algorithm>
 #include "Game.h"
 #include "functions.h"
 
@@ -41,6 +42,10 @@ void Game::callWinner (const GamePlayer& player) {
 	this->currentPlayer = player;
 }
 
+void Game::callDraw() {
+	this->gameInProgress = false;
+	this->currentPlayer = NONE;
+}
 
 void Game::resetMoves() {
 	engine::printDebug("Game::resetMoves()");
@@ -70,7 +75,7 @@ bool Game::checkForBlocks() {
 			if (field != EMPTY) {
 				if ((field == PLAYER_A || field == BALL_A) && lineA) {
 					if (lastA == Point(-1, -1) || (lastA.x + 1 == x && 
-					(lastA.y == y || lastA.y + 1 == y || lastA.y == y + 1 )) )
+					abs(lastA.y - y) <= 1 ) )
 						lastA = Point(x,y);
 					else
 						lineA = false;
@@ -78,7 +83,7 @@ bool Game::checkForBlocks() {
 				
 				if ((field == PLAYER_B || field == BALL_B) && lineB) {
 					if (lastB == Point(-1, -1) || (lastB.x + 1 == x && 
-						(lastB.y == y || lastB.y + 1 == y || lastB.y == y + 1 )) )
+					abs(lastB.y - y) <= 1 ) )
 						lastB = Point(x,y);
 					else
 						lineB = false;
@@ -90,7 +95,10 @@ bool Game::checkForBlocks() {
 		}
 	
 	if ((lineA || lineB) && contacts >= 3) {
-		this->callWinner(this->getOppositePlayer(this->currentPlayer));
+		if (lineA && lineB)
+			this->callDraw();
+		else
+			this->callWinner((lineA) ? GAME_PLAYER_B : GAME_PLAYER_A);
 		return true;
 	}
 }

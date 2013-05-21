@@ -36,6 +36,7 @@ class Game {
 		void resetMoves();
 		bool areEnemiesBetween (Point from, const Point& to) const;
 		void callWinner(const GamePlayer &player);
+		void callDraw();
 		/**
 		 * @brief Checks if 'unfair game' condition is met
 		 * @return bool
