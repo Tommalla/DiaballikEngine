@@ -18,14 +18,14 @@ namespace engine {
 	
 	//enums-related:
 	
-	GamePlayer getOppositePlayer (const GamePlayer& player) {
+	inline GamePlayer getOppositePlayer (const GamePlayer& player) {
 		//engine::printDebug(string("Game::getOppositePlayer(") + string({(char)((char)player + '0')})  + string(")"));
 		if (player == NONE)
 			return NONE;
 		return (player == GAME_PLAYER_A) ? GAME_PLAYER_B : GAME_PLAYER_A;
 	}
 	
-	GamePlayer getPlayerFor (const FieldState& field) {
+	inline GamePlayer getPlayerFor (const FieldState& field) {
 		//engine::printDebug(string("Game::getPlayerFor(") + string({(char)((char)field + '0')})  + string(")"));
 		
 		if (field == EMPTY)
