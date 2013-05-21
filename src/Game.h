@@ -33,11 +33,8 @@ class Game {
 		uint8_t passesLeft;
 		GamePlayer currentPlayer;
 		
-		unordered_set<string> prevStates;
-		
 		void resetMoves();
 		bool areEnemiesBetween (Point from, const Point& to) const;
-		void callDraw();
 		void callWinner(const GamePlayer &player);
 		/**
 		 * @brief Checks if 'unfair game' condition is met

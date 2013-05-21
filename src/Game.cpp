@@ -35,12 +35,6 @@ bool Game::areEnemiesBetween (Point from, const Point& to) const {
 	return false;
 }
 
-void Game::callDraw() {
-	engine::printDebug("Game::callDraw() -inacive (scheduled for removal)");
-	//this->gameInProgress = false;	//a draw
-	//this->currentPlayer = NONE;
-}
-
 void Game::callWinner (const GamePlayer& player) {
 	engine::printDebug(string("Game::callWinner(") + string({(char)((char)player + '0')})  + string(")"));
 	this->gameInProgress = false;
@@ -108,7 +102,6 @@ void Game::newGame() {
 	
 	this->resetMoves();
 	
-	this->prevStates.clear();
 	this->gameInProgress = true;
 }
 
@@ -149,16 +142,6 @@ void Game::makeMove (const Point& from, const Point& to) {
 		this->currentPlayer = this->getPlayerFor(srcFieldState);
 		this->resetMoves();
 	}
-	
-// 	{
-// 		string hash = this->getHash();
-// 		if (prevStates.count(hash) > 0) {	//repetition!
-// 			this->callDraw();
-// 			return;
-// 		}
-// 		
-// 		prevStates.insert(hash);
-// 	}
 	
 	if (dstFieldState == EMPTY) {	//MOVE
 		assert(this->movesLeft > 0);
