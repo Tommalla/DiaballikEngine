@@ -3,7 +3,6 @@ All rights reserved */
 
 #include <cassert>
 #include <cmath>
-//#include <algorithm>
 #include "Game.h"
 #include "functions.h"
 
@@ -22,9 +21,6 @@ bool Game::areEnemiesBetween (Point from, const Point& to) const {
 	Point diff = to - from;
 	diff.x = engine::sgn(diff.x);
 	diff.y = engine::sgn(diff.y);
-	//Point diff(((from - to).x > 0) ? 1 : -1, ((from - to).y > 0) ? 1 : -1);
-	
-// 	engine::printDebug("diff = (" + string({char(diff.x + '0')}) + ", " + string({char(diff.y + '0')}) + ")");
 	
 	do {
 		from = from + diff;
@@ -43,6 +39,7 @@ void Game::callWinner (const GamePlayer& player) {
 }
 
 void Game::callDraw() {
+	engine::printDebug("Game::callDraw()");
 	this->gameInProgress = false;
 	this->currentPlayer = NONE;
 }
@@ -317,6 +314,12 @@ const string Game::toString() const {
 	return string((this->currentPlayer == GAME_PLAYER_A) ? "PlayerA" : ((this->currentPlayer == GAME_PLAYER_B) ? "PlayerB" : "NONE")) +
 	"\n" + this->board.toString();
 }
+
+const string Game::toInvertedString() const {
+	return string((this->currentPlayer == GAME_PLAYER_A) ? "PlayerA" : ((this->currentPlayer == GAME_PLAYER_B) ? "PlayerB" : "NONE")) +
+	"\n" + this->board.toInvertedString();
+}
+
 
 
 

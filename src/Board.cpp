@@ -81,3 +81,16 @@ const string Board::toString() const {
 		return res;
 }
 
+const string Board::toInvertedString() const {
+	string res = "";
+	
+	for (int y = this->size - 1; y >= 0; --y, res += "\n") 
+		for (int x = this->size - 1; x >= 0; --x) {
+			string tmp = "";	//ugly hack
+			tmp.push_back(this->getFieldAt(x, y) + '0');
+			res += tmp + string(" ");
+		}
+		
+		return res;
+}
+

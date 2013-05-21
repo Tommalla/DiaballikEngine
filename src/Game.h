@@ -91,6 +91,7 @@ class Game {
 		
 		//debug
 		const string toString() const;
+		const string toInvertedString() const;
 };
 
 #endif // GAME_H

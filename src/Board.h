@@ -37,6 +37,7 @@ class Board {
 		
 		//debug:
 		const string toString() const;
+		const string toInvertedString() const;
 };
 
 #endif // BOARD_H
