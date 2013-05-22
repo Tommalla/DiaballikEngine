@@ -282,6 +282,7 @@ GamePlayer Game::getCurrentPlayer() const {
 
 void Game::setCurrentPlayer (const GamePlayer& player) {
 	this->currentPlayer = player;
+	this->resetMoves();
 }
 
 
