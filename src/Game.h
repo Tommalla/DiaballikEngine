@@ -81,6 +81,11 @@ class Game {
 		GamePlayer getWinner() const;
 		
 		GamePlayer getCurrentPlayer() const;
+		/**
+		 * @brief Sets current player to player
+		 *
+		 **/
+		void setCurrentPlayer(const GamePlayer &player);
 		
 		MoveType getMoveTypeFor (const Move& move);
 		

@@ -280,6 +280,11 @@ GamePlayer Game::getCurrentPlayer() const {
 	return this->currentPlayer;
 }
 
+void Game::setCurrentPlayer (const GamePlayer& player) {
+	this->currentPlayer = player;
+}
+
+
 MoveType Game::getMoveTypeFor (const Move& move) {
 	if (this->isMoveValid(move) == false)
 		return INVALID;
