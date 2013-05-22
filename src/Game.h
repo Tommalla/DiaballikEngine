@@ -84,6 +84,11 @@ class Game {
 		
 		MoveType getMoveTypeFor (const Move& move);
 		
+		/**
+		 * @brief Switches to the next player
+		 **/
+		void finishMove();
+		
 		const string getHash() const;
 		
 		//debug

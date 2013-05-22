@@ -286,6 +286,12 @@ MoveType Game::getMoveTypeFor (const Move& move) {
 	return (this->board.getFieldAt(move.to) != EMPTY) ? BALL_PASS : MOVE;
 }
 
+void Game::finishMove() {
+	this->currentPlayer = engine::getOppositePlayer(this->currentPlayer);
+	this->resetMoves();
+}
+
+
 const string Game::getHash() const {
 	engine::printDebug("Game::getHash()");
 	return char(this->currentPlayer) + this->board.getHash();
