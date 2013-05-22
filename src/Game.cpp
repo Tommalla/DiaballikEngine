@@ -113,7 +113,7 @@ void Game::newGame() {
 bool Game::isMoveValid (const Point& from, const Point& to) const {
 	engine::printDebug("Game::isMoveValid(" + string({char(from.x + '0')}) + ", " + string({char(from.y + '0')}) + "; " +
 	string({char(to.x + '0')}) + ", " + string({char(to.y + '0')}) + ")");
-	if (from.x != to.x && from.y != to.y && (to-from).x != (to-from).y)
+	if (from.x != to.x && from.y != to.y && abs((to-from).x) != abs((to-from).y))
 		return false;
 	
 	
