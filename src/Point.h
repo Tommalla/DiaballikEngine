@@ -14,6 +14,8 @@ class Point {
 
 Point operator+(const Point &a, const Point &b);
 Point operator-(const Point &a, const Point &b);
+Point operator*(const Point& a, const int8_t b);
+Point operator*(const int8_t a, const Point &b);
 const bool operator==(const Point &a, const Point &b);
 const bool operator!=(const Point &a, const Point &b);
 
