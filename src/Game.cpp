@@ -136,6 +136,10 @@ bool Game::isMoveValid (const Point& from, const Point& to) const {
 	if (from.x != to.x && from.y != to.y && abs((to-from).x) != abs((to-from).y))
 		return false;
 	
+	if (from.x >= this->board.getSize() || from.x < 0 || from.y >= this->board.getSize() || from.y < 0 ||
+		to.x >= this->board.getSize() || to.x < 0 || to.y >= this->board.getSize() || to.y < 0)
+		return false;
+	
 	
 	if (board.getFieldAt(to) == EMPTY) {
 		return (from.x == to.x || from.y == to.y) &&
