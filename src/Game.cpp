@@ -14,8 +14,8 @@ Game::Game() {
 }
 
 bool Game::areEnemiesBetween (Point from, const Point& to) const {
-	engine::printDebug("Game::areEnemiesBetween(" + string({char(from.x + '0')}) + ", " + string({char(from.y + '0')}) + "; " +
-	string({char(to.x + '0')}) + ", " + string({char(to.y + '0')}) + ")");
+	//engine::printDebug("Game::areEnemiesBetween(" + string({char(from.x + '0')}) + ", " + string({char(from.y + '0')}) + "; " +
+	//string({char(to.x + '0')}) + ", " + string({char(to.y + '0')}) + ")");
 	FieldState orig = this->board.getFieldAt(from);
 	
 	Point diff = to - from;
@@ -33,25 +33,25 @@ bool Game::areEnemiesBetween (Point from, const Point& to) const {
 }
 
 void Game::callWinner (const GamePlayer& player) {
-	engine::printDebug(string("Game::callWinner(") + string({(char)((char)player + '0')})  + string(")"));
+	//engine::printDebug(string("Game::callWinner(") + string({(char)((char)player + '0')})  + string(")"));
 	this->gameInProgress = false;
 	this->currentPlayer = player;
 }
 
 void Game::callDraw() {
-	engine::printDebug("Game::callDraw()");
+	//engine::printDebug("Game::callDraw()");
 	this->gameInProgress = false;
 	this->currentPlayer = NONE;
 }
 
 void Game::resetMoves() {
-	engine::printDebug("Game::resetMoves()");
+	//engine::printDebug("Game::resetMoves()");
 	this->movesLeft = 2;
 	this->passesLeft = 1;
 }
 
 bool Game::checkForBlocks() {
-	engine::printDebug("Game::checkForBlocks()");
+	//engine::printDebug("Game::checkForBlocks()");
 	int contacts = 0;
 	bool lineA, lineB;
 	lineA = lineB = true;
@@ -101,7 +101,7 @@ bool Game::checkForBlocks() {
 }
 
 void Game::newGame() {
-	engine::printDebug("Game::newGame()");
+	//engine::printDebug("Game::newGame()");
 	this->board = Board();
 	this->currentPlayer = NONE;
 	
@@ -111,8 +111,8 @@ void Game::newGame() {
 }
 
 bool Game::isMoveValid (const Point& from, const Point& to) const {
-	engine::printDebug("Game::isMoveValid(" + string({char(from.x + '0')}) + ", " + string({char(from.y + '0')}) + "; " +
-	string({char(to.x + '0')}) + ", " + string({char(to.y + '0')}) + ")");
+	//engine::printDebug("Game::isMoveValid(" + string({char(from.x + '0')}) + ", " + string({char(from.y + '0')}) + "; " +
+	//string({char(to.x + '0')}) + ", " + string({char(to.y + '0')}) + ")");
 	if (from.x != to.x && from.y != to.y && abs((to-from).x) != abs((to-from).y))
 		return false;
 	
@@ -130,14 +130,14 @@ bool Game::isMoveValid (const Point& from, const Point& to) const {
 }
 
 bool Game::isMoveValid (const Move& move) const {
-	engine::printDebug("Game::isMoveValid(" + string({char(move.from.x + '0')}) + ", " + string({char(move.from.y + '0')}) + "; " +
-	string({char(move.to.x + '0')}) + ", " + string({char(move.to.y + '0')}) + ")");
+	//engine::printDebug("Game::isMoveValid(" + string({char(move.from.x + '0')}) + ", " + string({char(move.from.y + '0')}) + "; " +
+	//string({char(move.to.x + '0')}) + ", " + string({char(move.to.y + '0')}) + ")");
 	return this->isMoveValid(move.from, move.to);
 }
 
 void Game::makeMove (const Point& from, const Point& to) {
-	engine::printDebug("Game::makeMove(" + string({char(from.x + '0')}) + ", " + string({char(from.y + '0')}) + "; " +
-	string({char(to.x + '0')}) + ", " + string({char(to.y + '0')}) + ")");
+	//engine::printDebug("Game::makeMove(" + string({char(from.x + '0')}) + ", " + string({char(from.y + '0')}) + "; " +
+	//string({char(to.x + '0')}) + ", " + string({char(to.y + '0')}) + ")");
 	assert(this->isMoveValid(from, to));
 	
 	FieldState srcFieldState = this->board.getFieldAt(from);
@@ -167,13 +167,13 @@ void Game::makeMove (const Point& from, const Point& to) {
 }
 
 void Game::makeMove (const Move& move) {
-	engine::printDebug("Game::makeMove(" + string({char(move.from.x + '0')}) + ", " + string({char(move.from.y + '0')}) + "; " +
-	string({char(move.to.x + '0')}) + ", " + string({char(move.to.y + '0')}) + ")");
+	//engine::printDebug("Game::makeMove(" + string({char(move.from.x + '0')}) + ", " + string({char(move.from.y + '0')}) + "; " +
+	//string({char(move.to.x + '0')}) + ", " + string({char(move.to.y + '0')}) + ")");
 	this->makeMove(move.from, move.to);
 }
 
 vector< Point > Game::getDestinationsFor (const int x, const int y) const {
-	engine::printDebug("Game::getDestinationsFor(" + string({char(x + '0')}) + ", " + string({char(y + '0')}) +")");
+	//engine::printDebug("Game::getDestinationsFor(" + string({char(x + '0')}) + ", " + string({char(y + '0')}) +")");
 	FieldState srcFieldState = this->board.getFieldAt(x, y);
 	vector<Point> res;
 	
@@ -219,12 +219,12 @@ vector< Point > Game::getDestinationsFor (const int x, const int y) const {
 }
 
 vector< Point > Game::getDestinationsFor (const Point& pos) const {
-	engine::printDebug("Game::getDestinationsFor(" + string({char(pos.x + '0')}) + ", " + string({char(pos.y + '0')}) +")");
+	//engine::printDebug("Game::getDestinationsFor(" + string({char(pos.x + '0')}) + ", " + string({char(pos.y + '0')}) +")");
 	return this->getDestinationsFor(pos.x, pos.y);
 }
 
 vector< Point > Game::getPawnsOf (const GamePlayer player) const {
-	engine::printDebug(string("Game::getPawnsOf(") + string({(char)((char)player + '0')})  + string(")"));
+	//engine::printDebug(string("Game::getPawnsOf(") + string({(char)((char)player + '0')})  + string(")"));
 	assert(this->gameInProgress);
 	
 	vector<Point> res;
@@ -238,17 +238,17 @@ vector< Point > Game::getPawnsOf (const GamePlayer player) const {
 }
 
 const FieldState Game::getFieldAt (const int8_t x, const int8_t y) {
-	engine::printDebug("Game::getFieldAt(" + string({char(x + '0')}) + ", " + string({char(y + '0')}) +")");
+	//engine::printDebug("Game::getFieldAt(" + string({char(x + '0')}) + ", " + string({char(y + '0')}) +")");
 	return this->board.getFieldAt(x, y);
 }
 
 const FieldState Game::getFieldAt (const Point& pos) const {
-	engine::printDebug("Game::getFieldAt(" + string({char(pos.x + '0')}) + ", " + string({char(pos.y + '0')}) +")");
+	//engine::printDebug("Game::getFieldAt(" + string({char(pos.x + '0')}) + ", " + string({char(pos.y + '0')}) +")");
 	return this->board.getFieldAt(pos);
 }
 
 bool Game::isFinished() {
-	engine::printDebug("Game::isFinished()");
+	//engine::printDebug("Game::isFinished()");
 	if (!this->gameInProgress)
 		return true;
 	
@@ -268,7 +268,7 @@ bool Game::isFinished() {
 }
 
 GamePlayer Game::getWinner() const {
-	engine::printDebug("Game::getWinner()");
+	//engine::printDebug("Game::getWinner()");
 	if (this->gameInProgress)
 		return NONE;
 	
@@ -276,7 +276,7 @@ GamePlayer Game::getWinner() const {
 }
 
 GamePlayer Game::getCurrentPlayer() const {
-	engine::printDebug("Game::getCurrentPlayer()");
+	//engine::printDebug("Game::getCurrentPlayer()");
 	return this->currentPlayer;
 }
 
@@ -299,7 +299,7 @@ void Game::finishMove() {
 
 
 const string Game::getHash() const {
-	engine::printDebug("Game::getHash()");
+	//engine::printDebug("Game::getHash()");
 	return char(this->currentPlayer) + this->board.getHash();
 }
 
