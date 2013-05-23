@@ -42,6 +42,7 @@ class Game {
 		 * @return bool
 		 **/
 		bool checkForBlocks();
+		bool innerIsFinished();
 		
 	public:
 		Game();
@@ -77,18 +78,17 @@ class Game {
 		const FieldState getFieldAt(const int8_t x, const int8_t y);
 		const FieldState getFieldAt(const Point& pos) const;
 		
-		bool isFinished();
 		GamePlayer getWinner() const;
 		
 		GamePlayer getCurrentPlayer() const;
 		/**
 		 * @brief Sets current player to player
-		 *
 		 **/
 		void setCurrentPlayer(const GamePlayer &player);
 		
 		MoveType getMoveTypeFor (const Move& move);
 		
+		const bool isFinished() const;
 		/**
 		 * @brief Switches to the next player
 		 **/

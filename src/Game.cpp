@@ -100,6 +100,26 @@ bool Game::checkForBlocks() {
 	}
 }
 
+bool Game::innerIsFinished() {
+	//engine::printDebug("Game::innerIsFinished()");
+	if (!this->gameInProgress)
+		return true;
+	
+	for (int x = 0; x < this->board.getSize(); ++x) {
+		if (this->board.getFieldAt(x, 0) == BALL_B) {
+			this->callWinner(GAME_PLAYER_B);
+			return true;
+		}
+		
+		if (this->board.getFieldAt(x, this->board.getSize() - 1) == BALL_A) {
+			this->callWinner(GAME_PLAYER_A);
+			return true;
+		}
+	}
+	
+	return false;
+}
+
 void Game::newGame() {
 	//engine::printDebug("Game::newGame()");
 	this->board = Board();
@@ -163,7 +183,7 @@ void Game::makeMove (const Point& from, const Point& to) {
 	}
 	
 	if (this->checkForBlocks() == false)
-		this->isFinished();
+		this->innerIsFinished();
 }
 
 void Game::makeMove (const Move& move) {
@@ -247,26 +267,6 @@ const FieldState Game::getFieldAt (const Point& pos) const {
 	return this->board.getFieldAt(pos);
 }
 
-bool Game::isFinished() {
-	//engine::printDebug("Game::isFinished()");
-	if (!this->gameInProgress)
-		return true;
-	
-	for (int x = 0; x < this->board.getSize(); ++x) {
-		if (this->board.getFieldAt(x, 0) == BALL_B) {
-			this->callWinner(GAME_PLAYER_B);
-			return true;
-		}
-		
-		if (this->board.getFieldAt(x, this->board.getSize() - 1) == BALL_A) {
-			this->callWinner(GAME_PLAYER_A);
-			return true;
-		}
-	}
-		
-	return false;
-}
-
 GamePlayer Game::getWinner() const {
 	//engine::printDebug("Game::getWinner()");
 	if (this->gameInProgress)
@@ -291,6 +291,11 @@ MoveType Game::getMoveTypeFor (const Move& move) {
 		return INVALID;
 	return (this->board.getFieldAt(move.to) != EMPTY) ? BALL_PASS : MOVE;
 }
+
+const bool Game::isFinished() const {
+	return !(this->gameInProgress);
+}
+
 
 void Game::finishMove() {
 	this->currentPlayer = engine::getOppositePlayer(this->currentPlayer);
