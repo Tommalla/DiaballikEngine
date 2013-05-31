@@ -9,6 +9,7 @@ set (HEADERS
 	Game.h
 	Move.h
 	Point.h
+	Singleton.h
 )
 
 set (SOURCES
