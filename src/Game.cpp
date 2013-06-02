@@ -8,9 +8,9 @@ All rights reserved */
 
 using namespace std;
 
-Game::Game() {
+Game::Game(const GamePlayer player) {
 	this->gameInProgress = false;
-	this->currentPlayer = NONE;
+	this->currentPlayer = player;
 }
 
 bool Game::areEnemiesBetween (Point from, const Point& to) const {

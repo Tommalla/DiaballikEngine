@@ -45,7 +45,7 @@ class Game {
 		bool innerIsFinished();
 		
 	public:
-		Game();
+		Game(const GamePlayer player = NONE);
 		void newGame();
 		//TODO for further versions
 		//void newGame(const Board &b);
