@@ -11,6 +11,7 @@ using namespace std;
 Game::Game(const GamePlayer player) {
 	this->gameInProgress = false;
 	this->currentPlayer = player;
+	this->resetMoves();
 }
 
 bool Game::areEnemiesBetween (Point from, const Point& to) const {
@@ -133,6 +134,9 @@ void Game::newGame() {
 bool Game::isMoveValid (const Point& from, const Point& to) const {
 	//engine::printDebug("Game::isMoveValid(" + string({char(from.x + '0')}) + ", " + string({char(from.y + '0')}) + "; " +
 	//string({char(to.x + '0')}) + ", " + string({char(to.y + '0')}) + ")");
+	if (this->movesLeft == 0 && this->passesLeft == 0)
+		return false;
+	
 	if (from.x != to.x && from.y != to.y && abs((to-from).x) != abs((to-from).y))
 		return false;
 	
@@ -163,6 +167,8 @@ void Game::makeMove (const Point& from, const Point& to) {
 	//engine::printDebug("Game::makeMove(" + string({char(from.x + '0')}) + ", " + string({char(from.y + '0')}) + "; " +
 	//string({char(to.x + '0')}) + ", " + string({char(to.y + '0')}) + ")");
 	assert(this->isMoveValid(from, to));
+	if (!this->isMoveValid(from, to))
+		return;
 	
 	FieldState srcFieldState = this->board.getFieldAt(from);
 	FieldState dstFieldState = this->board.getFieldAt(to);
@@ -321,10 +327,3 @@ const string Game::toInvertedString() const {
 	return string((this->currentPlayer == GAME_PLAYER_A) ? "PlayerA" : ((this->currentPlayer == GAME_PLAYER_B) ? "PlayerB" : "NONE")) +
 	"\n" + this->board.toInvertedString();
 }
-
-
-
-
-
-
-
