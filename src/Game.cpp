@@ -10,8 +10,7 @@ using namespace std;
 
 Game::Game(const GamePlayer player) {
 	this->gameInProgress = false;
-	this->currentPlayer = player;
-	this->resetMoves();
+	this->setCurrentPlayer(player);
 }
 
 bool Game::areEnemiesBetween (Point from, const Point& to) const {
@@ -134,7 +133,7 @@ void Game::newGame() {
 bool Game::isMoveValid (const Point& from, const Point& to) const {
 	//engine::printDebug("Game::isMoveValid(" + string({char(from.x + '0')}) + ", " + string({char(from.y + '0')}) + "; " +
 	//string({char(to.x + '0')}) + ", " + string({char(to.y + '0')}) + ")");
-	if (this->movesLeft == 0 && this->passesLeft == 0)
+	if (this->movesLeft <= 0 && this->passesLeft <= 0)
 		return false;
 	
 	if (from.x != to.x && from.y != to.y && abs((to-from).x) != abs((to-from).y))
@@ -146,12 +145,13 @@ bool Game::isMoveValid (const Point& from, const Point& to) const {
 	
 	
 	if (board.getFieldAt(to) == EMPTY) {
-		return (from.x == to.x || from.y == to.y) &&
+		return this->movesLeft > 0 && (from.x == to.x || from.y == to.y) &&
 			(abs((to - from).x) + abs((to - from).y) == 1) &&	/* Not more than one field */
 			this->board.getFieldAt(from) != BALL_A &&
 			this->board.getFieldAt(from) != BALL_B;
 	} else {
-		return ((this->board.getFieldAt(to) == PLAYER_A && this->board.getFieldAt(from) == BALL_A) ||
+		return this->passesLeft > 0 && 
+		((this->board.getFieldAt(to) == PLAYER_A && this->board.getFieldAt(from) == BALL_A) ||
 		(this->board.getFieldAt(to) == PLAYER_B && this->board.getFieldAt(from) == BALL_B)) &&
 		!this->areEnemiesBetween(from, to);
 	}
@@ -173,10 +173,8 @@ void Game::makeMove (const Point& from, const Point& to) {
 	FieldState srcFieldState = this->board.getFieldAt(from);
 	FieldState dstFieldState = this->board.getFieldAt(to);
 	
-	if (this->currentPlayer != engine::getPlayerFor(srcFieldState)) {	//player not yet known or a new player
-		this->currentPlayer = engine::getPlayerFor(srcFieldState);
-		this->resetMoves();
-	}
+	if (this->currentPlayer != engine::getPlayerFor(srcFieldState))	//player not yet known or a new player
+		this->setCurrentPlayer(engine::getPlayerFor(srcFieldState));
 	
 	if (dstFieldState == EMPTY) {	//MOVE
 		assert(this->movesLeft > 0);
