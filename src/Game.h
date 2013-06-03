@@ -95,6 +95,8 @@ class Game {
 		void finishMove();
 		
 		const string getHash() const;
+		const int getPassessLeft() const;
+		const int getMovesLeft() const;
 		
 		//debug
 		const string toString() const;

@@ -318,6 +318,14 @@ const string Game::getHash() const {
 	return char(this->currentPlayer) + this->board.getHash();
 }
 
+const int Game::getPassessLeft() const {
+	return this->passesLeft;
+}
+
+const int Game::getMovesLeft() const {
+	return this->movesLeft;
+}
+
 const string Game::toString() const {
 	return string((this->currentPlayer == GAME_PLAYER_A) ? "PlayerA" : ((this->currentPlayer == GAME_PLAYER_B) ? "PlayerB" : "NONE")) +
 	"\n" + this->board.toString();
