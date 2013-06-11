@@ -9,7 +9,7 @@ All rights reserved */
 using namespace std;
 
 Game::Game(const GamePlayer player) {
-	this->gameInProgress = false;
+	this->gameInProgress = true;
 	this->setCurrentPlayer(player);
 }
 
