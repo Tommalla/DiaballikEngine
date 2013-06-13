@@ -168,7 +168,7 @@ const bool Game::isMovePossible (const Point& from, const Point& to) const {
 }
 
 const bool Game::isMovePossible (const Move& move) const {
-	this->isMovePossible(move.from, move.to);
+	return this->isMovePossible(move.from, move.to);
 }
 
 
