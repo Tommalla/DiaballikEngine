@@ -19,4 +19,7 @@ class Move {
 		void revert();
 };
 
+const bool operator== (const Move& a, const Move& b);
+const bool operator!= (const Move& a, const Move& b);
+
 #endif // MOVE_H

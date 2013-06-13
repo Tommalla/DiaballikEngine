@@ -14,4 +14,14 @@ void Move::revert() {
 	this->to = tmp;
 }
 
+const bool operator== (const Move& a, const Move& b) {
+	return a.from == b.from && a.to == b.to;
+}
+
+
+const bool operator!= (const Move& a, const Move& b) {
+	return !(a == b);
+}
+
+
 
