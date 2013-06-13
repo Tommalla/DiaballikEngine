@@ -87,7 +87,7 @@ class Game {
 		/**
 		 * @brief Sets current player to player
 		 **/
-		void setCurrentPlayer(const GamePlayer &player);
+		void setCurrentPlayer(const GamePlayer &player, const uint8_t movesLeft = 2, const uint8_t passesLeft = 1);
 		
 		MoveType getMoveTypeFor (const Move& move);
 		

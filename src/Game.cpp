@@ -299,9 +299,10 @@ GamePlayer Game::getCurrentPlayer() const {
 	return this->currentPlayer;
 }
 
-void Game::setCurrentPlayer (const GamePlayer& player) {
+void Game::setCurrentPlayer (const GamePlayer& player, const uint8_t movesLeft, const uint8_t passesLeft) {
 	this->currentPlayer = player;
-	this->resetMoves();
+	this->movesLeft = movesLeft;
+	this->passesLeft = passesLeft;
 }
 
 
