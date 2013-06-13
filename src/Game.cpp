@@ -130,12 +130,20 @@ void Game::newGame() {
 	this->gameInProgress = true;
 }
 
-bool Game::isMoveValid (const Point& from, const Point& to) const {
+const bool Game::isMoveValid (const Point& from, const Point& to) const {
 	//engine::printDebug("Game::isMoveValid(" + string({char(from.x + '0')}) + ", " + string({char(from.y + '0')}) + "; " +
 	//string({char(to.x + '0')}) + ", " + string({char(to.y + '0')}) + ")");
-	if (this->movesLeft <= 0 && this->passesLeft <= 0)
-		return false;
+	return (this->movesLeft > 0 || this->passesLeft > 0) && this->isMovePossible(from, to);
 	
+}
+
+const bool Game::isMoveValid (const Move& move) const {
+	//engine::printDebug("Game::isMoveValid(" + string({char(move.from.x + '0')}) + ", " + string({char(move.from.y + '0')}) + "; " +
+	//string({char(move.to.x + '0')}) + ", " + string({char(move.to.y + '0')}) + ")");
+	return this->isMoveValid(move.from, move.to);
+}
+
+const bool Game::isMovePossible (const Point& from, const Point& to) const {
 	if (from.x != to.x && from.y != to.y && abs((to-from).x) != abs((to-from).y))
 		return false;
 	
@@ -143,12 +151,11 @@ bool Game::isMoveValid (const Point& from, const Point& to) const {
 		to.x >= this->board.getSize() || to.x < 0 || to.y >= this->board.getSize() || to.y < 0)
 		return false;
 	
-	
 	if (board.getFieldAt(to) == EMPTY) {
 		return this->movesLeft > 0 && (from.x == to.x || from.y == to.y) &&
-			(abs((to - from).x) + abs((to - from).y) == 1) &&	/* Not more than one field */
-			this->board.getFieldAt(from) != BALL_A &&
-			this->board.getFieldAt(from) != BALL_B;
+		(abs((to - from).x) + abs((to - from).y) == 1) &&	/* Not more than one field */
+		this->board.getFieldAt(from) != BALL_A &&
+		this->board.getFieldAt(from) != BALL_B;
 	} else {
 		return this->passesLeft > 0 && 
 		((this->board.getFieldAt(to) == PLAYER_A && this->board.getFieldAt(from) == BALL_A) ||
@@ -157,18 +164,23 @@ bool Game::isMoveValid (const Point& from, const Point& to) const {
 	}
 }
 
-bool Game::isMoveValid (const Move& move) const {
-	//engine::printDebug("Game::isMoveValid(" + string({char(move.from.x + '0')}) + ", " + string({char(move.from.y + '0')}) + "; " +
-	//string({char(move.to.x + '0')}) + ", " + string({char(move.to.y + '0')}) + ")");
-	return this->isMoveValid(move.from, move.to);
+const bool Game::isMovePossible (const Move& move) const {
+	this->isMovePossible(move.from, move.to);
 }
 
-void Game::makeMove (const Point& from, const Point& to) {
+
+void Game::makeMove (const Point& from, const Point& to, const bool undo) {
 	//engine::printDebug("Game::makeMove(" + string({char(from.x + '0')}) + ", " + string({char(from.y + '0')}) + "; " +
 	//string({char(to.x + '0')}) + ", " + string({char(to.y + '0')}) + ")");
-	assert(this->isMoveValid(from, to));
-	if (!this->isMoveValid(from, to))
-		return;
+	if (undo == true) {
+		assert(this->isMovePossible(from, to));
+		if (!this->isMovePossible(from, to))
+			return;
+	} else {
+		assert(this->isMoveValid(from, to));
+		if (!this->isMoveValid(from, to))
+			return;
+	}
 	
 	FieldState srcFieldState = this->board.getFieldAt(from);
 	FieldState dstFieldState = this->board.getFieldAt(to);
@@ -177,24 +189,20 @@ void Game::makeMove (const Point& from, const Point& to) {
 		this->setCurrentPlayer(engine::getPlayerFor(srcFieldState));
 	
 	if (dstFieldState == EMPTY) {	//MOVE
-		assert(this->movesLeft > 0);
-		
 		this->board.setFieldAt(to, srcFieldState);
 		this->board.setFieldAt(from, EMPTY);
-		this->movesLeft--;
+		this->movesLeft += (undo) ? 1 : (-1);
 	} else {	//PASS
-		assert(this->passesLeft > 0);
-		
 		this->board.setFieldAt(to, srcFieldState);
 		this->board.setFieldAt(from, dstFieldState);
-		this->passesLeft--;
+		this->passesLeft += (undo) ? 1 : (-1);
 	}
 	
 	if (this->checkForBlocks() == false)
 		this->innerIsFinished();
 }
 
-void Game::makeMove (const Move& move) {
+void Game::makeMove (const Move& move, const bool undo) {
 	//engine::printDebug("Game::makeMove(" + string({char(move.from.x + '0')}) + ", " + string({char(move.from.y + '0')}) + "; " +
 	//string({char(move.to.x + '0')}) + ", " + string({char(move.to.y + '0')}) + ")");
 	this->makeMove(move.from, move.to);

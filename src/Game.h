@@ -51,16 +51,19 @@ class Game {
 		//void newGame(const Board &b);
 		//begins a new game on a given Board.
 		
-		bool isMoveValid(const Point& from, const Point& to) const;
-		bool isMoveValid(const Move& move) const;
-		void makeMove(const Point& from, const Point& to);
-		void makeMove(const Move& move);
-		//TODO for further versions used for gui-based games with undo option
-		//void undoMove(const Point& from, const Point &to);
-		//void undoMove(const Move& move);
-		//works pretty much the same as makeMove BUT removes states from prevStates so that going back with
-		//moves and then doing them again doesn't induce draws
-		
+		const bool isMoveValid(const Point& from, const Point& to) const;
+		const bool isMoveValid(const Move& move) const;
+		/**
+		 * @brief Returns true if the move is possible - performs the whole validation
+		 * unaware of the player and his/her moves/passes left. Otherwise, returns false
+		 **/
+		const bool isMovePossible(const Point& from, const Point& to) const;
+		/**
+		 * @brief Equals [[isMovePossible(const Point&, const Point&)]]
+		 **/
+		const bool isMovePossible(const Move& move) const;
+		void makeMove(const Point& from, const Point& to, const bool undo = false);
+		void makeMove(const Move& move, const bool undo = false);
 		/**
 		 * @brief Returns fields that pawn can move to in one move (or pass ball to)
 		 * @param pos The position of pawn
