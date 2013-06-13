@@ -205,7 +205,7 @@ void Game::makeMove (const Point& from, const Point& to, const bool undo) {
 void Game::makeMove (const Move& move, const bool undo) {
 	//engine::printDebug("Game::makeMove(" + string({char(move.from.x + '0')}) + ", " + string({char(move.from.y + '0')}) + "; " +
 	//string({char(move.to.x + '0')}) + ", " + string({char(move.to.y + '0')}) + ")");
-	this->makeMove(move.from, move.to);
+	this->makeMove(move.from, move.to, undo);
 }
 
 vector< Point > Game::getDestinationsFor (const int x, const int y) const {
