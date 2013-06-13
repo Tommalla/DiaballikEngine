@@ -8,3 +8,10 @@ Move::Move (const Point& from, const Point& to) {
 	this->to = to;
 }
 
+void Move::revert() {
+	Point tmp = this->from;
+	this->from = this->to;
+	this->to = tmp;
+}
+
+

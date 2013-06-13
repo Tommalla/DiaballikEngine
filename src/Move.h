@@ -12,6 +12,11 @@ class Move {
 		
 		Move(){}
 		Move(const Point &from, const Point &to);
+		
+		/**
+		 * @brief Reverts the move (swaps from and to)
+		 **/
+		void revert();
 };
 
 #endif // MOVE_H
