@@ -98,6 +98,8 @@ bool Game::checkForBlocks() {
 			this->callWinner((lineA) ? GAME_PLAYER_B : GAME_PLAYER_A);
 		return true;
 	}
+	
+	return false;
 }
 
 bool Game::innerIsFinished() {
