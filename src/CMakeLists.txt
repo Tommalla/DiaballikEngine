@@ -1,6 +1,7 @@
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 set (HEADERS
+	BitContainerInputStream.h
 	BitContainer.h
 	Board.h
 	constants.h
@@ -13,6 +14,7 @@ set (HEADERS
 )
 
 set (SOURCES
+	BitContainerInputStream.cpp
 	BitContainer.cpp
 	Board.cpp
 	Game.cpp
