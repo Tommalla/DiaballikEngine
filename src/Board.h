@@ -23,7 +23,7 @@ class Board {
 		 * @brief Creates a new square board of specified width
 		 * @param size Board width. The default is 7.
 		 **/
-		Board(int size = BOARD_SIZE);
+		Board(const bool defaultLayout = true, const int size = BOARD_SIZE);
 		Board(const Board &b);
 		
 		void setFieldAt(const uint8_t x, const uint8_t y, const FieldState field);

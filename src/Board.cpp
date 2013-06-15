@@ -11,9 +11,11 @@ void Board::copyToSelf (const Board& b) {
 	this->board = b.board;
 }
 
-Board::Board (int size) : board(size * size, MAX_FIELD_STATE) {
+Board::Board (const bool defaultLayout, const int size) : board(size * size, MAX_FIELD_STATE) {
 	this->size = size;
-	//this->board = new BitContainer(size * size, MAX_FIELD_STATE);
+	
+	if (defaultLayout == false)
+		return;
 	
 	for (int x = 0; x < this->size; ++x) {
 		this->setFieldAt(x, 0, PLAYER_A);
