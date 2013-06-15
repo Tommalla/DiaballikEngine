@@ -23,6 +23,17 @@ class BitContainerStream : protected BitContainer {
 		
 		const int getNextValue();
 		const bool hasNext() const;
+		/**
+		 * @brief Appends value at the end of [[BitContainerStream]].
+		 * 
+		 * It's done on assumption that each value starting from the [[nextId]]
+		 * is of length [[bitsPerValue]] and that the current container has been 
+		 * fully read (eg. "unused" spaces at the end will be a part of the value
+		 * appended)/
+		 *
+		 * @param value The value to be appended.
+		 **/
+		void append(const int value);
 };
 
 #endif // BITCONTAINERINPUTSTREAM_H

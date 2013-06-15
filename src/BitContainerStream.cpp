@@ -1,7 +1,7 @@
 /* Tomasz [Tommalla] Zakrzewski, 2013
 All rights reserved */
 
-#include "BitContainerInputStream.h"
+#include "BitContainerStream.h"
 
 int BitContainerStream::getBegin (const int id) const {
 	return this->currentEnd;
@@ -52,6 +52,20 @@ const bool BitContainerStream::hasNext() const {
 	return this->currentEnd + this->bitsPerValue < this->bitsPerInt ||
 		this->currentRow + (this->currentEnd + this->bitsPerValue) / this->bitsPerInt < this->container.size();
 }
+
+void BitContainerStream::append (const int value) {
+	//calculate the real end of the last row
+	int d = ((this->container.size() - this->currentRow) * this->bitsPerValue) + this->bitsPerInt - this->currentEnd;
+	int realEnd = this->bitsPerInt -  (d % this->bitsPerValue);
+	
+	//append as many rows as needed
+	int tmp = (this->bitsPerValue - (this->bitsPerInt - realEnd)) / this->bitsPerInt;
+	while (tmp--)
+		this->container.push_back(0);
+	
+	this->setValue(this->nextId + d / this->bitsPerValue, value);
+}
+
 
 
 
