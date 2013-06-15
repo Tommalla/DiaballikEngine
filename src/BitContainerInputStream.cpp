@@ -32,6 +32,11 @@ void BitContainerInputStream::setBitsPerValue (const int bpv) {
 	this->bitsPerValue = bpv;
 }
 
+vector< uint8_t > BitContainerInputStream::getData() const {
+	return this->container;
+}
+
+
 const int BitContainerInputStream::getNextValue() {
 	int res = this->getValue(this->nextId);
 	this->nextId++;
