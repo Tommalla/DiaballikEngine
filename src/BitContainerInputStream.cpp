@@ -5,7 +5,7 @@ All rights reserved */
 #include "BitContainerInputStream.h"
 
 int BitContainerInputStream::getBegin (const int id) const {
-	return this->currentEnd;
+	return this->currentBegin;
 }
 
 int BitContainerInputStream::getRow (const int id) const {
@@ -13,18 +13,18 @@ int BitContainerInputStream::getRow (const int id) const {
 }
 
 BitContainerInputStream::BitContainerInputStream() : BitContainer(0, 0) {
-	this->currentEnd = this->currentRow = this->nextId = 0;
+	this->currentBegin = this->currentRow = 0;
 	this->size = INT_MAX;
 }
 
 BitContainerInputStream::BitContainerInputStream(const vector< uint8_t > data) : BitContainer (0, 0) {
-	this->currentEnd = this->currentRow = this->nextId = 0;
+	this->currentBegin = this->currentRow = 0;
 	this->container = data;
 	this->size = INT_MAX;
 }
 
 BitContainerInputStream::BitContainerInputStream (const BitContainer& b) : BitContainer(b) {
-	this->currentEnd = this->currentRow = this->nextId = 0;
+	this->currentBegin = this->currentRow = 0;
 	this->size = INT_MAX;
 }
 
@@ -37,19 +37,19 @@ void BitContainerInputStream::addBits (const uint8_t bits) {
 }
 
 const int BitContainerInputStream::getNextValue() {
-	int res = this->getValue(this->nextId);
-	this->nextId++;
-	this->currentEnd += this->bitsPerValue;
+	int res = this->getValue(666);
+	this->currentBegin += this->bitsPerValue;
 	
-	if (this->currentEnd > this->bitsPerInt) {
-		this->currentRow += this->currentEnd / this->bitsPerInt;
-		this->currentEnd %= this->bitsPerInt;
+	if (this->currentBegin > this->bitsPerInt) {
+		this->currentRow += this->currentBegin / this->bitsPerInt;
+		this->currentBegin %= this->bitsPerInt;
 	}
+	return res;
 }
 
 const bool BitContainerInputStream::hasNext() const {
-	return this->currentEnd + this->bitsPerValue < this->bitsPerInt ||
-		this->currentRow + (this->currentEnd + this->bitsPerValue) / this->bitsPerInt < this->container.size();
+	return this->currentBegin + this->bitsPerValue < this->bitsPerInt ||
+		this->currentRow + (this->currentBegin + this->bitsPerValue) / this->bitsPerInt < this->container.size();
 }
 
 

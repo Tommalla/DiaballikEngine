@@ -8,7 +8,7 @@ All rights reserved */
 
 class BitContainerInputStream : protected BitContainer {
 	protected:
-		int currentRow, currentEnd, nextId;
+		int currentRow, currentBegin;
 		
 		virtual int getBegin (const int id) const;
 		virtual int getRow (const int id) const;
