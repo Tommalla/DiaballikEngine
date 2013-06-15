@@ -47,9 +47,15 @@ class Game {
 	public:
 		Game(const GamePlayer player = NONE);
 		void newGame();
-		//TODO for further versions
-		//void newGame(const Board &b);
-		//begins a new game on a given Board.
+		/**
+		 * @brief Creates a new game from a predefined board
+		 *
+		 * @param black The coordinates of the black pawns
+		 * @param white The coordinates of the white pawns
+		 * @param ball The cooridnates of the balls (black then white)
+		 * @return bool False if the board is invalid. Otherwise true.
+		 **/
+		bool newGame(const vector<Point> black, const vector<Point> white, const vector<Point> ball);
 		
 		const bool isMoveValid(const Point& from, const Point& to) const;
 		const bool isMoveValid(const Move& move) const;

@@ -132,6 +132,35 @@ void Game::newGame() {
 	this->gameInProgress = true;
 }
 
+bool Game::newGame (const vector< Point > black, const vector< Point > white, const vector< Point > ball) {
+	this->board = Board(false);
+	this->currentPlayer = NONE;
+	
+	this->resetMoves();
+	
+	vector<Point> pawns[2] = {black, white};
+	FieldState pawnTypes[2] = {PLAYER_A, PLAYER_B};
+	FieldState ballTypes[2] = {BALL_A, BALL_B};
+	
+	for (int i = 0; i < 2; ++i) {
+		for (Point pawn: pawns[i]) {
+			if (this->board.getFieldAt(pawn) != EMPTY)
+				return false;
+			this->board.setFieldAt(pawn, pawnTypes[i]);
+		}
+	}
+	
+	for (int i = 0; i < 2; ++i) {
+		if (this->board.getFieldAt(ball[i]) != pawnTypes[i])
+			return false;
+		this->board.setFieldAt(ball[i], ballTypes[i]);
+	}
+	
+	this->gameInProgress = true;
+	return true;
+}
+
+
 const bool Game::isMoveValid (const Point& from, const Point& to) const {
 	//engine::printDebug("Game::isMoveValid(" + string({char(from.x + '0')}) + ", " + string({char(from.y + '0')}) + "; " +
 	//string({char(to.x + '0')}) + ", " + string({char(to.y + '0')}) + ")");
