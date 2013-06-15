@@ -14,9 +14,11 @@ class BitContainerInputStream : protected BitContainer {
 		virtual int getBegin (const int id) const;
 		virtual int getRow (const int id) const;
 	public:
+		BitContainerInputStream();
 		BitContainerInputStream(const vector<uint8_t> data);
 		BitContainerInputStream(const BitContainer& b);
 		
+		void addBits(const uint8_t bits);
 		void setBitsPerValue(const int bpv);
 		
 		const int getNextValue();

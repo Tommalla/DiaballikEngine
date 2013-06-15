@@ -11,6 +11,10 @@ int BitContainerInputStream::getRow (const int id) const {
 	return this->currentRow;
 }
 
+BitContainerInputStream::BitContainerInputStream() : BitContainer(0, 0) {
+	this->currentEnd = this->currentRow = this->nextId = 0;
+}
+
 BitContainerInputStream::BitContainerInputStream(const vector< uint8_t > data) : BitContainer (0, 0) {
 	this->currentEnd = this->currentRow = this->nextId = 0;
 	this->container = data;
@@ -18,6 +22,10 @@ BitContainerInputStream::BitContainerInputStream(const vector< uint8_t > data) :
 
 BitContainerInputStream::BitContainerInputStream (const BitContainer& b) : BitContainer(b) {
 	this->currentEnd = this->currentRow = this->nextId = 0;
+}
+
+void BitContainerInputStream::addBits (const uint8_t bits) {
+	this->container.push_back(bits);
 }
 
 void BitContainerInputStream::setBitsPerValue (const int bpv) {
