@@ -324,8 +324,9 @@ void Game::finishMove() {
 
 
 const string Game::getHash() const {
-	//engine::printDebug("Game::getHash()");
-	return char(this->currentPlayer) + this->board.getHash();
+	string res = this->board.getHash();
+	res.push_back(this->currentPlayer);
+	return res;
 }
 
 const int Game::getPassessLeft() const {

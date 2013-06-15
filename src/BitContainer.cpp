@@ -120,10 +120,10 @@ vector< uint8_t > BitContainer::getData() const {
 }
 
 const string BitContainer::getHash() const {
-	string res = "";
-	for (int i = 0; i < this->container.size() - 1; ++i)
-		res.push_back(this->container[i]);
-	res.push_back(container.back());
+	string res;
+ 	for (int i = 0; i < this->container.size() - 1; ++i)
+ 		res.push_back(this->container[i]);
+ 	res.push_back(container.back());
 	return res;
 }
 
