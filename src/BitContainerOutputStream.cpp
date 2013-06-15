@@ -21,6 +21,10 @@ void BitContainerOutputStream::setBitsPerValue (const int bpv) {
 	BitContainer::setBitsPerValue(bpv);
 }
 
+vector< uint8_t > BitContainerOutputStream::getData() const {
+	return BitContainer::getData();
+}
+
 
 void BitContainerOutputStream::append (const int value) {
 	//append as many rows as needed

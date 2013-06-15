@@ -16,6 +16,7 @@ class BitContainerOutputStream : protected BitContainer {
 	public:
 		BitContainerOutputStream();
 		void setBitsPerValue(const int bpv);
+		vector<uint8_t> getData() const;
 		/**
 		 * @brief Appends value at the end of [[BitContainerStream]].
 		 * 
