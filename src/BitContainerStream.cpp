@@ -1,6 +1,7 @@
 /* Tomasz [Tommalla] Zakrzewski, 2013
 All rights reserved */
 
+#include <climits>
 #include "BitContainerStream.h"
 
 int BitContainerStream::getBegin (const int id) const {
@@ -11,11 +12,11 @@ int BitContainerStream::getRow (const int id) const {
 	return this->currentRow;
 }
 
-BitContainerStream::BitContainerStream() : BitContainer(0, 0) {
+BitContainerStream::BitContainerStream() : BitContainer(INT_MAX, 0) {
 	this->currentEnd = this->currentRow = this->nextId = 0;
 }
 
-BitContainerStream::BitContainerStream(const vector< uint8_t > data) : BitContainer (0, 0) {
+BitContainerStream::BitContainerStream(const vector< uint8_t > data) : BitContainer (INT_MAX, 0) {
 	this->currentEnd = this->currentRow = this->nextId = 0;
 	this->container = data;
 }
