@@ -6,17 +6,16 @@ All rights reserved */
 
 #include "BitContainer.h"
 
-
-class BitContainerInputStream : protected BitContainer {
+class BitContainerStream : protected BitContainer {
 	protected:
 		int currentRow, currentEnd, nextId;
 		
 		virtual int getBegin (const int id) const;
 		virtual int getRow (const int id) const;
 	public:
-		BitContainerInputStream();
-		BitContainerInputStream(const vector<uint8_t> data);
-		BitContainerInputStream(const BitContainer& b);
+		BitContainerStream();
+		BitContainerStream(const vector<uint8_t> data);
+		BitContainerStream(const BitContainer& b);
 		
 		void addBits(const uint8_t bits);
 		void setBitsPerValue(const int bpv);
