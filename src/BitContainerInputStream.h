@@ -22,7 +22,7 @@ class BitContainerInputStream : protected BitContainer {
 		void setBitsPerValue(const int bpv);
 		
 		const int getNextValue();
-		
+		const bool hasNext() const;
 };
 
 #endif // BITCONTAINERINPUTSTREAM_H

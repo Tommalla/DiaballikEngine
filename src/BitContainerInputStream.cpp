@@ -43,6 +43,11 @@ const int BitContainerInputStream::getNextValue() {
 	}
 }
 
+const bool BitContainerInputStream::hasNext() const {
+	return this->currentEnd + this->bitsPerValue < this->bitsPerInt ||
+		this->currentRow + (this->currentEnd + this->bitsPerValue) / this->bitsPerInt < this->container.size();
+}
+
 
 
 
