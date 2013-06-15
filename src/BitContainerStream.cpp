@@ -12,17 +12,20 @@ int BitContainerStream::getRow (const int id) const {
 	return this->currentRow;
 }
 
-BitContainerStream::BitContainerStream() : BitContainer(INT_MAX, 0) {
+BitContainerStream::BitContainerStream() : BitContainer(0, 0) {
 	this->currentEnd = this->currentRow = this->nextId = 0;
+	this->size = INT_MAX;
 }
 
-BitContainerStream::BitContainerStream(const vector< uint8_t > data) : BitContainer (INT_MAX, 0) {
+BitContainerStream::BitContainerStream(const vector< uint8_t > data) : BitContainer (0, 0) {
 	this->currentEnd = this->currentRow = this->nextId = 0;
 	this->container = data;
+	this->size = INT_MAX;
 }
 
 BitContainerStream::BitContainerStream (const BitContainer& b) : BitContainer(b) {
 	this->currentEnd = this->currentRow = this->nextId = 0;
+	this->size = INT_MAX;
 }
 
 void BitContainerStream::addBits (const uint8_t bits) {
