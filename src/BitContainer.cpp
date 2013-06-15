@@ -42,6 +42,7 @@ int BitContainer::getBits (const int row, const int begin, const int end) const 
 }
 
 void BitContainer::setBits (const int row, const int begin, const int end, const uint8_t value) {
+	//printf("setBits(%d, %d, %d, %d)\n", row, begin, end, value);
 	
 	uint8_t clearMask = this->getClearMask(begin, end);
 	uint8_t mask = this->getMask(begin, end, value);
@@ -64,6 +65,7 @@ void BitContainer::setValue (const int id, int value) {
 	assert(id < size);
 	
 	//printf("DEBUG: setValue(%d, %d)\n", id, value);
+	//printf("row = %d, begin = %d\n", this->getRow(id), this->getBegin(id));
 	
 	int row = this->getRow(id);
 	int begin = this->getBegin(id);
