@@ -17,6 +17,8 @@ class BitContainerInputStream : protected BitContainer {
 		BitContainerInputStream(const vector<uint8_t> data);
 		BitContainerInputStream(const BitContainer& b);
 		
+		void setBitsPerValue(const int bpv);
+		
 		void addBits(const uint8_t bits);
 		
 		const int getNextValue();

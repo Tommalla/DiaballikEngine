@@ -15,6 +15,7 @@ class BitContainerOutputStream : protected BitContainer {
 		int currentRow, currentEnd;
 	public:
 		BitContainerOutputStream();
+		void setBitsPerValue(const int bpv);
 		/**
 		 * @brief Appends value at the end of [[BitContainerStream]].
 		 * 

@@ -28,6 +28,10 @@ BitContainerInputStream::BitContainerInputStream (const BitContainer& b) : BitCo
 	this->size = INT_MAX;
 }
 
+void BitContainerInputStream::setBitsPerValue(const int bpv) {
+	BitContainer::setBitsPerValue(bpv);
+}
+
 void BitContainerInputStream::addBits (const uint8_t bits) {
 	this->container.push_back(bits);
 }

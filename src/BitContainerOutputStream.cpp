@@ -17,6 +17,10 @@ BitContainerOutputStream::BitContainerOutputStream(): BitContainer(0, 0) {
 	this->currentEnd = this->currentRow = 0;
 }
 
+void BitContainerOutputStream::setBitsPerValue (const int bpv) {
+	BitContainer::setBitsPerValue(bpv);
+}
+
 
 void BitContainerOutputStream::append (const int value) {
 	//append as many rows as needed
