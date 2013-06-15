@@ -1,28 +1,20 @@
 /* Tomasz [Tommalla] Zakrzewski, 2013
 All rights reserved */
 
-#ifndef BITCONTAINERINPUTSTREAM_H
-#define BITCONTAINERINPUTSTREAM_H
+#ifndef BITCONTAINEROUTPUTSTREAM_H
+#define BITCONTAINEROUTPUTSTREAM_H
 
 #include "BitContainer.h"
 
-class BitContainerStream : protected BitContainer {
+
+class BitContainerOutputStream : protected BitContainer {
 	protected:
-		int currentRow, currentEnd, nextId;
-		
 		virtual int getBegin (const int id) const;
 		virtual int getRow (const int id) const;
+
+		int currentRow, currentEnd;
 	public:
-		BitContainerStream();
-		BitContainerStream(const vector<uint8_t> data);
-		BitContainerStream(const BitContainer& b);
-		
-		void addBits(const uint8_t bits);
-		void setBitsPerValue(const int bpv);
-		vector<uint8_t> getData() const;
-		
-		const int getNextValue();
-		const bool hasNext() const;
+		BitContainerOutputStream();
 		/**
 		 * @brief Appends value at the end of [[BitContainerStream]].
 		 * 
@@ -36,4 +28,4 @@ class BitContainerStream : protected BitContainer {
 		void append(const int value);
 };
 
-#endif // BITCONTAINERINPUTSTREAM_H
+#endif // BITCONTAINEROUTPUTSTREAM_H

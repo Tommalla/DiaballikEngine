@@ -42,6 +42,9 @@ class BitContainer {
 		void setValue(const int id, const int value);
 		int getValue(const int id) const;
 		
+		void setBitsPerValue (const int bpv);
+		vector< uint8_t > getData() const;
+		
 		const string getHash() const;
 		BitContainer& operator=(const BitContainer& b);
 };

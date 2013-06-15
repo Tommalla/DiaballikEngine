@@ -109,6 +109,14 @@ int BitContainer::getValue (const int id) const {
 	return result;
 }
 
+void BitContainer::setBitsPerValue (const int bpv) {
+	this->bitsPerValue = bpv;
+}
+
+vector< uint8_t > BitContainer::getData() const {
+	return this->container;
+}
+
 const string BitContainer::getHash() const {
 	string res = "";
 	for (int i = 0; i < this->container.size() - 1; ++i)
