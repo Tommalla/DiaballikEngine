@@ -1,6 +1,8 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
+#include <cassert>
 #include <string>
+#include <sstream>
 #include "enums.h"
 #include "Game.h"
 
@@ -43,6 +45,61 @@ namespace engine {
 		if (player == GAME_PLAYER_A)
 			return "w";
 		return "b";
+	}
+	
+	inline const vector< string > splitString(const string& str) {
+		vector<string> res;
+		
+		istringstream iss(str);
+		
+		do {
+			string sub;
+			iss >> sub;
+			if (sub.empty() == false)
+				res.push_back(sub);
+		} while (iss);
+		
+		return res;
+	}
+	
+	inline const pair<const string, const string> convertFromMove(const Move& move) {
+		assert(move.from.x >= 0 && move.from.x <= 7);
+		assert(move.from.y >= 0 && move.from.y <= 7);
+		assert(move.to.x >= 0 && move.to.x <= 7);
+		assert(move.to.y >= 0 && move.to.y <= 7);
+		
+		return {string( {char('a' + move.from.x), char('1' + (6 - move.from.y))} ),	//Tricky hack - making 2-elements-long tables of chars
+		string( {char('a' + move.to.x), char('1' + (6 - move.to.y))} )};
+	}
+	
+	inline const Move convertToMove(const string& from, const string& to) {
+		assert(from.length() == 2 && to.length() == 2);
+		assert(from[0] >= 'a' && from[0] <= 'g');
+		assert(from[1] >= '1' && from[1] <= '7');
+		assert(to[0] >= 'a' && to[0] <= 'g');
+		assert(to[1] >= '1' && to[1] <= '7');
+		
+		return Move(Point(from[0] - 'a', 6 - (from[1] - '1')), 
+			    Point(to[0] - 'a', 6 - (to[1] - '1')) );
+	}
+	
+	inline const vector< Move > convertToMoves (const string& arg) {
+		string from, to;
+		vector<Move> res;
+		
+		for(int i = 0; i + 3 < arg.size(); i += 4) {
+			from.clear();
+			to.clear();
+			from.push_back(arg[i]);
+			from.push_back(arg[i + 1]);
+			
+			to.push_back(arg[i + 2]);
+			to.push_back(arg[i + 3]);
+			
+			res.push_back(convertToMove(from, to));
+		}
+		
+		return res;
 	}
 	
 }
