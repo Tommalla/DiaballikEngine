@@ -2,6 +2,7 @@
 #define FUNCTIONS_H
 #include <string>
 #include "enums.h"
+#include "Game.h"
 
 using namespace std;
 
@@ -33,6 +34,15 @@ namespace engine {
 		if (field >= PLAYER_A && field <= BALL_A)
 			return GAME_PLAYER_A;
 		return GAME_PLAYER_B;
+	}
+	
+	/**
+	 * @brief Returns an identificator for the player in GTP
+	 **/
+	inline const string getIdFor (const GamePlayer& player) {
+		if (player == GAME_PLAYER_A)
+			return "w";
+		return "b";
 	}
 	
 }
