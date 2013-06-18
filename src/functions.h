@@ -87,7 +87,7 @@ namespace engine {
 		string from, to;
 		vector<Move> res;
 		
-		for(int i = 0; i + 3 < arg.size(); i += 4) {
+		for(int i = 0; i + 3 < (int)arg.size(); i += 4) {
 			from.clear();
 			to.clear();
 			from.push_back(arg[i]);
