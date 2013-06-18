@@ -43,8 +43,8 @@ namespace engine {
 	 **/
 	inline const string getIdFor (const GamePlayer& player) {
 		if (player == GAME_PLAYER_A)
-			return "w";
-		return "b";
+			return "b";
+		return "w";
 	}
 	
 	inline const vector< string > splitString(const string& str) {
