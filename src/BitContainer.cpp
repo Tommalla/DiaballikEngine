@@ -96,7 +96,6 @@ int BitContainer::getValue (const int id) const {
 	int end = min(begin + this->bitsPerValue, this->bitsPerInt);
 	int bitsRead = 0;
 	int result = 0;
-	int offset;
 	
 	for(; bitsRead < this->bitsPerValue;) {
 		//printf("DEBUG: reading row %d: [%d, %d], val = %d\n", row, begin, end, this->getBits(row, begin, end));
@@ -121,7 +120,7 @@ vector< uint8_t > BitContainer::getData() const {
 
 const string BitContainer::getHash() const {
 	string res;
- 	for (int i = 0; i < this->container.size() - 1; ++i)
+ 	for (int i = 0; i < (int)this->container.size() - 1; ++i)
  		res.push_back(this->container[i]);
  	res.push_back(container.back());
 	return res;

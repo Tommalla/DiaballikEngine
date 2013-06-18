@@ -49,7 +49,7 @@ const int BitContainerInputStream::getNextValue() {
 
 const bool BitContainerInputStream::hasNext() const {
 	return this->currentBegin + this->bitsPerValue < this->bitsPerInt ||
-		this->currentRow + (this->currentBegin + this->bitsPerValue) / this->bitsPerInt < this->container.size();
+		this->currentRow + (this->currentBegin + this->bitsPerValue) / this->bitsPerInt < (int)this->container.size();
 }
 
 
