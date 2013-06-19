@@ -117,6 +117,70 @@ namespace engine {
 		return res;
 	}
 	
+	
+	static const Point winInOneTurnMoves[3][4][2] = {
+		{{Point(-1, 0), Point(-1, 0)}, {Point(1, 0), Point(1, 0)}, {Point(0, 0), Point(0, 0)}, {Point(0, 0), Point(0, 0)}},	//0 fields away
+		{{Point(-1, 0), Point(0, 1)}, {Point(0, 1), Point(-1, 0)}, {Point(0, 1), Point(1, 0)}, {Point(1, 0), Point(0, 1)}},	//one up, one lr
+		{{Point(0, 1), Point(0, 1)}, {Point(0,0), Point(0, 0)}, {Point(0, 0), Point(0,0)}, {Point(0, 0), Point(0, 0)}}	//2 fields up/down
+	};
+	
+	static const int winInOneTurnLen[3] = {2, 4, 1};
+	
+	inline bool canWinInOneTurn (const Game& tmpGame, const GamePlayer player) {
+		vector<Point> pawns = tmpGame.getPawnsOf(player);
+		Point holder;
+		
+		for (int i = 0; i < (int)pawns.size(); ++i)
+			if (tmpGame.getFieldAt(pawns[i]) == BALL_A || tmpGame.getFieldAt(pawns[i]) == BALL_B) {
+				holder = pawns[i];
+				swap(pawns[i], pawns[pawns.size() - 1]);
+				pawns.pop_back();
+				break;
+			}
+			
+			int lineY = (player == GAME_PLAYER_A) ? 6 : 0;
+		
+		for (Point pawn : pawns)
+			if (abs(lineY - pawn.y) <= 2) {	//can possibly reach the line
+				
+				#ifndef NDEBUG
+				fprintf(stderr, "%s\n", tmpGame.toString().c_str());
+				#endif
+				int variant = abs(lineY - pawn.y);	//which variant - 2, 1 or 0 field from line
+				
+				for (int i = 0; i < winInOneTurnLen[variant]; ++i) {
+					Game tmp2 = tmpGame;
+					Point tmpPawn = pawn;
+					Point dstPawn, diff;
+					
+					for (int j = 0; j < 2; ++j) {
+						if (tmpPawn.y == lineY && tmp2.isMoveValid(holder, tmpPawn))	//can pass to line
+							return true;
+						
+						diff = winInOneTurnMoves[variant][i][j];
+						diff.y *= ((lineY - pawn.y > 0) ? 1 : -1);
+						dstPawn = tmpPawn + diff;
+						
+						if (tmp2.isMoveValid(tmpPawn, dstPawn)) {
+							tmp2.makeMove(tmpPawn, dstPawn);
+							tmpPawn = dstPawn;
+						} else
+							break;
+					}
+					
+					if (tmpPawn.y == lineY && tmp2.isMoveValid(holder, tmpPawn))	//can pass to line
+						return true;
+					
+				}
+			}
+			
+			return false;	//everything else failed
+	
+		
+	}
+	
+	
+	
 }
 
 #endif
