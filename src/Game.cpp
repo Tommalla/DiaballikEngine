@@ -240,6 +240,26 @@ void Game::makeMove (const Move& move, const bool undo) {
 	this->makeMove(move.from, move.to, undo);
 }
 
+void Game::makeUnsafeMove (const Point& from, const Point& to) {
+	FieldState srcFieldState = this->board.getFieldAt(from);
+	FieldState dstFieldState = this->board.getFieldAt(to);
+	
+	if (srcFieldState == EMPTY)
+		return;
+	
+	if (dstFieldState == EMPTY) {	//MOVE
+		this->board.setFieldAt(to, srcFieldState);
+		this->board.setFieldAt(from, EMPTY);
+	} else {	//PASS
+		this->board.setFieldAt(to, srcFieldState);
+		this->board.setFieldAt(from, dstFieldState);
+	}
+}
+
+void Game::makeUnsafeMove (const Move& move) {
+	this->makeUnsafeMove(move.from, move.to);
+}
+
 vector< Point > Game::getDestinationsFor (const int x, const int y) const {
 	//engine::printDebug("Game::getDestinationsFor(" + string({char(x + '0')}) + ", " + string({char(y + '0')}) +")");
 	FieldState srcFieldState = this->board.getFieldAt(x, y);

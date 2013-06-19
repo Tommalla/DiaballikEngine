@@ -70,6 +70,8 @@ class Game {
 		const bool isMovePossible(const Move& move) const;
 		void makeMove(const Point& from, const Point& to, const bool undo = false);
 		void makeMove(const Move& move, const bool undo = false);
+		void makeUnsafeMove(const Point& from, const Point& to);
+		void makeUnsafeMove(const Move& move);
 		/**
 		 * @brief Returns fields that pawn can move to in one move (or pass ball to)
 		 * @param pos The position of pawn
