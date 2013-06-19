@@ -96,7 +96,7 @@ bool Game::checkForBlocks() {
 			this->callDraw();
 		else
 			this->callWinner((lineA) ? GAME_PLAYER_B : GAME_PLAYER_A);
-		return true;
+		return !(this->gameInProgress = false);
 	}
 	
 	return false;
