@@ -93,8 +93,8 @@ namespace engine {
 	inline const vector<Point> convertToPoints(const string& str) {
 		vector<Point> res;
 		
-		for (int i = 0; i + 1 < (int)str.size(); ++i)
-			res.push_back(Point(str[i] - 'a', 6 - str[i] + '7'));
+		for (int i = 0; i + 1 < (int)str.size(); i += 2)
+			res.push_back(Point(str[i] - 'a', 6 - str[i + 1] + '1'));
 		return res;
 	}
 	
