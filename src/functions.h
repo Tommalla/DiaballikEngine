@@ -63,10 +63,10 @@ namespace engine {
 	}
 	
 	inline const pair<const string, const string> convertFromMove(const Move& move) {
-		assert(move.from.x >= 0 && move.from.x <= 7);
-		assert(move.from.y >= 0 && move.from.y <= 7);
-		assert(move.to.x >= 0 && move.to.x <= 7);
-		assert(move.to.y >= 0 && move.to.y <= 7);
+		assert(move.from.x >= 0 && move.from.x <= 6);
+		assert(move.from.y >= 0 && move.from.y <= 6);
+		assert(move.to.x >= 0 && move.to.x <= 6);
+		assert(move.to.y >= 0 && move.to.y <= 6);
 		
 		return {string( {char('a' + move.from.x), char('1' + (6 - move.from.y))} ),	//Tricky hack - making 2-elements-long tables of chars
 		string( {char('a' + move.to.x), char('1' + (6 - move.to.y))} )};
@@ -81,6 +81,13 @@ namespace engine {
 		
 		return Move(Point(from[0] - 'a', 6 - (from[1] - '1')), 
 			    Point(to[0] - 'a', 6 - (to[1] - '1')) );
+	}
+	
+	inline const string convertFromPoint(const Point& p) {
+		assert(p.x >= 0 && p.x <= 6);
+		assert(p.y >= 0 && p.y <= 6);
+		
+		return string( {char(p.x + 'a'), char(6 - p.y + '1')});
 	}
 	
 	inline const vector< Move > convertToMoves (const string& arg) {
