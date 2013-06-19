@@ -90,6 +90,14 @@ namespace engine {
 		return string( {char(p.x + 'a'), char(6 - p.y + '1')});
 	}
 	
+	inline const vector<Point> convertToPoints(const string& str) {
+		vector<Point> res;
+		
+		for (int i = 0; i + 1 < (int)str.size(); ++i)
+			res.push_back(Point(str[i] - 'a', 6 - str[i] + '7'));
+		return res;
+	}
+	
 	inline const vector< Move > convertToMoves (const string& arg) {
 		string from, to;
 		vector<Move> res;
