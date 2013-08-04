@@ -11,7 +11,9 @@ class Move {
 		Point from, to;
 		
 		Move(){}
+		Move(const int8_t fromX, const int8_t fromY, const int8_t toX, const int8_t toY);
 		Move(const Point &from, const Point &to);
+
 		
 		/**
 		 * @brief Reverts the move (swaps from and to)
